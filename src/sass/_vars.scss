@@ -1,0 +1,14 @@
+:root {
+  --primary-oange-color: #ff6b08;
+  --secondary-orange-color: #ff6b01;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --red-lining-color: #ff001b;
+  --footer-text-color: #545454;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 250ms;
+}
+
+$mobile: 320px;
+$tablet: 768px;
+$desktop: 1280px;
