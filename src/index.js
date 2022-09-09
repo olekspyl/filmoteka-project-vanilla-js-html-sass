@@ -1,1 +1,1 @@
-import { console } from './js/example';
+import { console } from './js/example-index';
