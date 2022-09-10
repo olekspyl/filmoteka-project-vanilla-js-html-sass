@@ -1,3 +1,8 @@
+import { getMovieById } from './fetch-movie';
+
+const modalOneFilmRef = document.querySelector('.film-card');
+const backdropRef = document.querySelector('.backdrop');
+
 const renderModalOneFilm = modalFilm => {
   const {
     poster_path,
@@ -59,5 +64,22 @@ const renderModalOneFilm = modalFilm => {
       </div>
     </div>`;
 
-  refs.modalFilm.insertAdjacentHTML('beforeend', markupModalOneFilm);
+  modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
 };
+
+document.addEventListener('keydown', event => {
+  if (event.code === 'escape') {
+    console.log(e.code);
+    backdropRef.classList.add('visually-hidden');
+  }
+  if (event.code === 'e') {
+    backdropRef.classList.remove('visually-hidden');
+  }
+});
+
+// const onKeyPress = e => {
+//   if (e.code === 'Escape') {
+//     refs.body.style.overflow = 'visible';
+//     refs.body.removeEventListener('keydown', onKeyPress);
+//   }
+// };

@@ -3,11 +3,16 @@
   height: 100vh;
   position: fixed;
   top: 0;
+
   background-color: hsla(0, 0%, 0%, 0.25);
   z-index: 999;
   transition: visibility 0.5s, opacity 0.5s;
   overflow: auto;
 }
+
+// .is-hidden {
+//   visibility: hidden;
+// }
 
 .film-card {
   background-color: white;
@@ -44,7 +49,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: transparent;
+  background-color: black;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 8px;
