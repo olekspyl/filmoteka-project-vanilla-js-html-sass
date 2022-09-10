@@ -3,7 +3,7 @@ console.log('Start');
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
-const requireImages = new AxiosRequestService();
+const requireData = new AxiosRequestService();
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -25,34 +25,59 @@ async function onSearch(evt) {
 
   clearMarkup();
 
-  const searchValue = evt.currentTarget.elements.searchQuery.value.trim();
+  const config = await requireData.getConfig();
+  console.log('Config', config.images.base_url);
 
-  if (!searchValue) {
-    return;
-  }
+  const genresData = await requireData.getGenre();
+  console.log('Genres', genresData);
 
-  requireImages.query = searchValue;
-  requireImages.resetPage();
+  const films = await requireData.getFilms();
+  console.log('films', films.results);
 
-  const images = await requireImages.getImage();
+  const { results } = films;
+  function modifyFilms() {}
+  const newFilms = results.map(result => {
+    const { genre_ids, release_date } = result;
 
-  if (images.hits.length === 0) {
-    return;
-  }
+    let releaseYear = release_date.slice(0, 4);
 
-  totalHits = images.totalHits;
+    function genresList() {
+      const genresNames = [];
+      for (let i = 0; i < genre_ids.length; i += 1) {
+        if (i < 2) {
+          genresNames.push(genresById(genre_ids[i]));
+        } else {
+          genresNames.push('Other');
+          break;
+        }
+      }
 
-  totalHits -= images.hits.length;
+      return genresNames.join(', ');
+    }
+    const filmGenres = genresList();
+    // }
+    function genresById(id) {
+      const { genres } = genresData;
+      for (const genre of genres) {
+        if (genre.id === id) {
+          //   console.log(genre.name);
+          return genre.name;
+        }
+      }
+    }
+    return { filmGenres, releaseYear, ...result };
+  });
+  console.log('newFilms', newFilms);
 
-  const markup = createMarkup(images.hits);
+  //   if (images.hits.length === 0) {
+  //     return;
+  //   }
+  const markup = createMarkup(newFilms);
 
   addToHTML(markup);
-
-  toggleLoadMoreBtn(totalHits);
-
-  gallery.refresh();
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
 async function onLoadMore() {
   const images = await requireImages.getImage();
 

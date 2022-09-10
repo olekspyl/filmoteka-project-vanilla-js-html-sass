@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const params = {
-  key: '28415242-e0e8b03e245983e2ec7e6c358',
-  image_type: 'photo',
-  orientation: 'horizontal',
-  safesearch: true,
-  per_page: 40,
+  api_key: 'd2c21f22a2d4ccc40e22a6b0b1329764',
+  // image_type: 'photo',
+  // orientation: 'horizontal',
+  // // safesearch: true,
+  // per_page: 40,
 };
 
 export default class AxiosRequestService {
@@ -14,10 +14,17 @@ export default class AxiosRequestService {
     this.page = 1;
   }
 
-  async getImage() {
+  async getFilms() {
     try {
-      const url = `https://pixabay.com/api/?q=${this.searchQuery}&page=${this.page}`;
+      // const url = `https://pixabay.com/api/?q=${this.searchQuery}&page=${this.page}`;
+      const url = `https://api.themoviedb.org/3/trending/movie/day?&page=${this.page}`;
+      // const url = `https://api.themoviedb.org/3/movie/616037?&language=en-US`;
+      // const url = `https://api.themoviedb.org/3/configuration?`;
+      // const url = `https://api.themoviedb.org/3/genre/movie/list?&language=en-US`;
 
+      // const url = `https://api.themoviedb.org/3/movie/616037/images?&language=en-US`;
+      // https://api.themoviedb.org/3/movie/{movie_id}/images?api_key=<<api_key>>&language=en-US
+      // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
       const response = await axios.get(url, { params });
 
       await this.incrementPage();
@@ -50,5 +57,43 @@ export default class AxiosRequestService {
 
   set query(newQuery) {
     this.searchQuery = newQuery;
+  }
+  async getConfig() {
+    try {
+      const url = `https://api.themoviedb.org/3/configuration?`;
+      const response = await axios.get(url, { params });
+      await this.incrementPage();
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+  }
+  async getGenre() {
+    try {
+      const url = `https://api.themoviedb.org/3/genre/movie/list?&language=en-US`;
+      const response = await axios.get(url, { params });
+      await this.incrementPage();
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
   }
 }
