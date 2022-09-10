@@ -1,2 +1,3 @@
 import { console } from './js/example-index';
-import { loader} from './js/loader';
+import {} from './js/gallery-popular-films';
+import { loader } from './js/loader';
