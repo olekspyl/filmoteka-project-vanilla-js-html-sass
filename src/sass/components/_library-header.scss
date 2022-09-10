@@ -1,8 +1,6 @@
 // BG
 
 .library-header {
-  height: 230px;
-  max-width: 767px;
   margin-left: auto;
   margin-right: auto;
 
@@ -32,9 +30,6 @@
   }
 
   @media screen and (min-width: 768px) and (max-width: 1279px) {
-    height: 220px;
-    max-width: 1279px;
-
     // background-image: linear-gradient(
     //     to right,
     //     rgba(0, 0, 0, 0.56),
@@ -56,9 +51,6 @@
   }
 
   @media screen and (min-width: 1280px) {
-    height: 216px;
-    max-width: 1600px;
-
     // background-image: linear-gradient(
     //     to right,
     //     rgba(0, 0, 0, 0.56),
@@ -101,17 +93,16 @@
 .library-header-logo a {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-left: 20px;
+  align-items: baseline;
+
+  padding-top: 40px;
 
   @media screen and (min-width: 768px) {
-    margin-top: 45px;
-    margin-left: 32px;
+    padding-top: 45px;
   }
 
   @media screen and (min-width: 1280px) {
-    margin-top: 47px;
-    margin-left: 34px;
+    padding-top: 47px;
   }
 }
 
@@ -133,7 +124,6 @@
   @media screen and (min-width: 768px) {
     font-size: 30px;
     display: block;
-    margin-top: -4px;
   }
 
   &:hover {
@@ -155,12 +145,6 @@
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-
-  margin-right: 20px;
-
-  @media screen and (min-width: 768px) {
-    margin-right: 32px;
-  }
 }
 
 .library-header-list__link {
@@ -168,10 +152,10 @@
 }
 
 .library-header-list__item {
-  margin-top: 44px;
+  padding-top: 44px;
 
   @media screen and (min-width: 768px) {
-    margin-top: 49px;
+    padding-top: 49px;
   }
 }
 
@@ -208,10 +192,12 @@
   margin-left: auto;
   margin-right: auto;
 
-  margin-top: 60px;
+  padding-bottom: 62px;
+  padding-top: 60px;
 
   @media screen and (min-width: 768px) {
-    margin-top: 46px;
+    padding-bottom: 60px;
+    padding-top: 40px;
   }
 }
 
@@ -228,7 +214,7 @@
   line-height: 1.33;
 
   border-radius: 5px;
-  background: rgba(0, 0, 0, 0.56);
+  background: rgba(0, 0, 0, 0);
   border: 1px solid var(--white-color);
 
   transition: border var(--duration) var(--timing-function);
