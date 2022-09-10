@@ -4,3 +4,8 @@
 @import './helpers/loader';
 @import './gallery';
 @import './footer';
+
+// бэкдроп для модалок
+@import './components/backdrop'; // модалка тим мемберов
+
+@import './components/modal-team';
