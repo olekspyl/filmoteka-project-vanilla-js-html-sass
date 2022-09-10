@@ -2,19 +2,16 @@ export default function createMarkup(films) {
   return films
     .map(film => {
       return `
-        <div class="gallery__item">
-          
-          <div class="gallery__info">
-          <img class="gallery__image" src="http://image.tmdb.org/t/p/w342/${film.poster_path}" alt="${film.title}" loading="lazy" />
+        <div class="gallery__item data-id="${film.id}">
+          <img class="gallery__image" src="${film.base_url}w342/${film.poster_path}" alt="${film.title}" loading="lazy" />
           </a>
+          <div class="gallery__info">
               <p class="gallery__info-item">
-                  <b>title ${film.title}</b>
+                  <b>title: ${film.title}</b>
                     <p class="gallery__info-item">
-                  <b>genre_ids${film.filmGenres}</b>
-
+                  <b>genres: ${film.filmGenreList}</b
               <p class="gallery__info-item">
-                  <b>release_date ${film.releaseYear}</b>
-
+                  <b>release: ${film.releaseYear}</b>
           </div>
       </div>`;
     })

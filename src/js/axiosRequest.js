@@ -2,9 +2,6 @@ import axios from 'axios';
 
 const params = {
   api_key: 'd2c21f22a2d4ccc40e22a6b0b1329764',
-  // image_type: 'photo',
-  // orientation: 'horizontal',
-  // // safesearch: true,
   // per_page: 40,
 };
 
@@ -62,7 +59,6 @@ export default class AxiosRequestService {
     try {
       const url = `https://api.themoviedb.org/3/configuration?`;
       const response = await axios.get(url, { params });
-      await this.incrementPage();
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -81,7 +77,6 @@ export default class AxiosRequestService {
     try {
       const url = `https://api.themoviedb.org/3/genre/movie/list?&language=en-US`;
       const response = await axios.get(url, { params });
-      await this.incrementPage();
       return response.data;
     } catch (error) {
       if (error.response) {
