@@ -1,2 +1,7 @@
 @import './helpers/vars';
 @import './helpers/common';
+
+// бэкдроп для модалок
+@import './components/backdrop'; // модалка тим мемберов
+
+@import './components/modal-team';
