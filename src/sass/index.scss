@@ -1,3 +1,6 @@
 @import './helpers/vars';
 @import './helpers/common';
-@import './footer'
+@import './components/library-header';
+@import './helpers/loader';
+@import './gallery';
+@import './footer';
