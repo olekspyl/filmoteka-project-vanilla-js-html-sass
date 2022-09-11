@@ -6,6 +6,7 @@ export default class KeyMovieFetch {
   constructor() {
     this.inputValue = '';
     this.page = 1;
+    this.genres = '';
     // this.per_page = 40;
     // this.summaryHits = 0;
     // this.loadMore = document.querySelector('.load-more__btn');
@@ -31,7 +32,8 @@ export default class KeyMovieFetch {
 
   async getGenre() {
     try {
-      const url = 'https://api.themoviedb.org/3/genre/movie/list/';
+      const url =
+        'https://api.themoviedb.org/3/genre/movie/list?&language=en-US`';
       //   this.loadMore.classList.add('is-hidden');
       const response = await axios.get(url, {
         params: {
