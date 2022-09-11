@@ -49,7 +49,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: black;
+  background-color: white;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 8px;
@@ -174,5 +174,9 @@
 }
 
 .button-close__icon {
-  fill: transparent;
+  background-color: transparent;
+  color: black;
+
+  cursor: pointer;
+  border: none;
 }
