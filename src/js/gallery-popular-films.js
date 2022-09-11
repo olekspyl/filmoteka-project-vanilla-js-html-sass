@@ -1,5 +1,3 @@
-console.log('Start');
-
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
@@ -75,7 +73,7 @@ async function modifyData() {
   }
   return filmAddUrl;
 }
-// modifyData();
+
 async function renderGallery() {
   clearMarkup();
   const popularFilms = await modifyData();
@@ -84,16 +82,10 @@ async function renderGallery() {
   addToHTML(markup);
 }
 
-// console.log(
-//   'page',
-//   page.classList.contains('library-header-list__link--active')
-
-// );
 if (page.classList.contains('header-list__link--current')) {
   renderGallery();
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
 async function onLoadMore() {
   renderGallery();
   // const images = await requireImages.getImage();
@@ -114,11 +106,3 @@ function addToHTML(markup) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-
-// function toggleLoadMoreBtn(hitsValue) {
-//   if (hitsValue === 0 || hitsValue < 0) {
-//     refs.loadMoreBtn.style.display = 'none';
-//   } else {
-//     refs.loadMoreBtn.style.display = 'block';
-//   }
-// }
