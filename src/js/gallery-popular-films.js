@@ -1,4 +1,4 @@
-import { renderModalOneFilm } from './modal-film';
+// import { renderModalOneFilm } from './modal-film';
 
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
