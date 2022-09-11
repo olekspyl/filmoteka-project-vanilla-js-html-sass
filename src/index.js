@@ -1,5 +1,5 @@
 import { console } from './js/example-index';
-import {} from './js/gallery-popular-films';
+import './js/gallery-popular-films';
 import { loader } from './js/loader';
 import './js/teamModal.js';
 import { modal_film } from './js/modal-film';
