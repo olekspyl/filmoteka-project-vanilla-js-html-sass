@@ -18,7 +18,7 @@ function onLibraryLinkClick() {
 
     if (noWatched && noQueue) {
         const emptyLibrary = `<div class="empty-library"> <img class="empty-library__img" src="images/empty_library.jpg" alt="library is empty" /> <p class="empty-library__title">YOUR LIBRARY IS EMPTY!</p> </div>`;
-        filmotekaWrap.innerHTML = emptyLibrary;
+        libraryWrap.innerHTML = emptyLibrary;
     }
 
     if (!noQueue) {
