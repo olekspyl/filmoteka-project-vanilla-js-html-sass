@@ -1,4 +1,4 @@
-console.log('Start');
+import { renderModalOneFilm } from './modal-film';
 
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
@@ -8,10 +8,17 @@ const page = document.querySelector('a[data-page="home"]');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
+  cards: document.querySelectorAll('.card-set__item'),
   // loadMoreBtn: document.querySelector('.load-more'),
 };
 
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
+refs.gallery.addEventListener('click', onGalleryClick);
+function onGalleryClick(e) {
+  e.preventDefault();
+  renderModalOneFilm();
+  // console.log('e.currentTarger: ', e.currentTarget);
+}
 
 async function fetchData() {
   const data = await Promise.all([
@@ -109,6 +116,12 @@ async function onLoadMore() {
 
 function addToHTML(markup) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
+  const galleryItems = document.querySelectorAll('.card-set__item');
+
+  galleryItems.forEach(card =>
+    card.removeEventListener('click', onGalleryClick)
+  );
+  galleryItems.forEach(card => card.addEventListener('click', onGalleryClick));
 }
 
 function clearMarkup() {
