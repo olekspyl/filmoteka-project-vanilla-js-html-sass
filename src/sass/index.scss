@@ -1,13 +1,14 @@
 @import './helpers/vars';
 @import './helpers/common';
-@import './components/library-header';
-@import './components/library-header';
 @import './helpers/loader';
+@import './helpers/header-in';
+@import './components/library-header';
+@import './helpers/film-modal';
+@import './components/galleryMarkup';
 @import './gallery';
-@import './footer';
 
+@import './footer';
 // бэкдроп для модалок
 @import './components/backdrop'; // модалка тим мемберов
 
 @import './components/modal-team';
-@import './helpers/header-in';
