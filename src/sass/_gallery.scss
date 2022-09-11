@@ -10,19 +10,24 @@ p {
 /* ==================================== */
 
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-
+  display: block;
+  list-style: none;
   // max-width: 1140px;
   margin: 20px auto;
+  margin-left: auto;
+  margin-right: auto;
 
   // gap: 10px;
 
   @media screen and (min-width: 768px) {
     width: calc(100% / 2 - 30px);
+    display: flex;
+    flex-wrap: wrap;
   }
   @media screen and (min-width: 1280px) {
     width: calc(100% / 3 - 30px);
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 .gallery__item {
