@@ -10,9 +10,9 @@
   overflow: auto;
 }
 
-.is-hidden {
-  visibility: hidden;
-}
+// .is-hidden {
+//   visibility: hidden;
+// }
 
 .film-card {
   background-color: white;
@@ -49,7 +49,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: black;
+  background-color: white;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 8px;
@@ -151,7 +151,8 @@
 .description-button {
   width: 110px;
   height: 44px;
-  background-color: black;
+  background-color: white;
+  color: black;
   border-radius: 5px;
   border: 1px solid black;
   text-transform: uppercase;
@@ -160,8 +161,8 @@
     margin-right: 20px;
   }
   &:focus {
-    background-color: black;
-    color: black;
+    background-color: #ff6b01;
+    color: white;
     border: none;
   }
   @media screen and(min-width:768px) {
@@ -173,5 +174,12 @@
 }
 
 .button-close__icon {
-  fill: black;
+  background-color: transparent;
+  color: black;
+
+  cursor: pointer;
+  border: none;
+}
+.film-card__description-about {
+  margin-bottom: 20px;
 }

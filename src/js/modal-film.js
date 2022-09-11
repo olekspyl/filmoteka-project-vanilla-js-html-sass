@@ -2,8 +2,24 @@ import { getMovieById } from './fetch-movie';
 
 const modalOneFilmRef = document.querySelector('.film-card');
 const backdropRef = document.querySelector('.backdrop');
+const closeModalBtnRef = document.querySelector('.film-card__button-close');
+const modalRef = document.querySelector('.data-modal');
 
-const renderModalOneFilm = modalFilm => {
+const refs = {
+  closeModalBtn: document.querySelector('.film-card__button-close'),
+  modal: document.querySelector('.data-modal'),
+  modalOneFilmRef: document.querySelector('.film-card'),
+};
+
+export function initEventListener() {
+  refs.closeModalBtn.addEventListener('click', toggleModal);
+}
+
+export function toggleModal() {
+  refs.modal.classList.toggle('is-hidden');
+}
+
+export function renderModalOneFilm(modalFilm) {
   const {
     poster_path,
     title,
@@ -64,13 +80,5 @@ const renderModalOneFilm = modalFilm => {
       </div>
     </div>`;
 
-  modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
-};
-
-// document.addEventListener('keydown', event => {
-//   if (event.code === 'escape') {
-//     console.log(e.code);
-//     backdropRef.classList.add('visually-hidden');
-//   }
-
-renderModalOneFilm();
+  refs.modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
+}
