@@ -10,9 +10,9 @@
   overflow: auto;
 }
 
-.is-hidden {
-  visibility: hidden;
-}
+// .is-hidden {
+//   visibility: hidden;
+// }
 
 .film-card {
   background-color: white;
@@ -151,7 +151,7 @@
 .description-button {
   width: 110px;
   height: 44px;
-  background-color: black;
+  background-color: white;
   border-radius: 5px;
   border: 1px solid black;
   text-transform: uppercase;
@@ -160,7 +160,7 @@
     margin-right: 20px;
   }
   &:focus {
-    background-color: black;
+    background-color: #ff6b01;
     color: black;
     border: none;
   }
@@ -173,5 +173,5 @@
 }
 
 .button-close__icon {
-  fill: black;
+  fill: transparent;
 }
