@@ -1,16 +1,24 @@
-console.log('Start');
+import { renderModalOneFilm } from './modal-film';
 
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
 const requireData = new AxiosRequestService();
+const page = document.querySelector('a[data-page="home"]');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
+  cards: document.querySelectorAll('.card-set__item'),
+  // loadMoreBtn: document.querySelector('.load-more'),
 };
 
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore);
+refs.gallery.addEventListener('click', onGalleryClick);
+function onGalleryClick(e) {
+  e.preventDefault();
+  renderModalOneFilm();
+  // console.log('e.currentTarger: ', e.currentTarget);
+}
 
 async function fetchData() {
   const data = await Promise.all([
@@ -74,7 +82,7 @@ async function modifyData() {
   }
   return filmAddUrl;
 }
-// modifyData();
+
 async function renderGallery() {
   clearMarkup();
   const popularFilms = await modifyData();
@@ -82,10 +90,12 @@ async function renderGallery() {
 
   addToHTML(markup);
 }
-renderGallery();
-/////////////////////////////////////////////////////////////////////////////////////////
+
+if (page.classList.contains('header-list__link--current')) {
+  renderGallery();
+}
+
 async function onLoadMore() {
-  requireData.page = 7;
   renderGallery();
   // const images = await requireImages.getImage();
   // const markup = createMarkup(images.hits);
@@ -100,16 +110,14 @@ async function onLoadMore() {
 
 function addToHTML(markup) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
+  const galleryItems = document.querySelectorAll('.card-set__item');
+
+  galleryItems.forEach(card =>
+    card.removeEventListener('click', onGalleryClick)
+  );
+  galleryItems.forEach(card => card.addEventListener('click', onGalleryClick));
 }
 
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-
-// function toggleLoadMoreBtn(hitsValue) {
-//   if (hitsValue === 0 || hitsValue < 0) {
-//     refs.loadMoreBtn.style.display = 'none';
-//   } else {
-//     refs.loadMoreBtn.style.display = 'block';
-//   }
-// }

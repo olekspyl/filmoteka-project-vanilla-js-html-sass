@@ -4,7 +4,7 @@ export default function createMarkup(films) {
       return `
       
       <li class="card-set__item" id="${film.id}">
-      <a href='#' id='${film.id}'>
+      <a href='#' id='${film.id}' class="card-link">
       <img id="${film.id}
           loading="lazy"
           src="${film.base_url}w342/${film.poster_path}"
@@ -18,7 +18,7 @@ export default function createMarkup(films) {
       <ul class="card-set__genre" id="${film.id}>
           ${film.filmGenreList}
       </ul>
-      <span class="card-set__genre-movie">&nbsp| ${film.releaseYear} id="${film.id}</span>
+      <span class="card-set__genre">&nbsp| ${film.releaseYear} id="${film.id}</span>
       <div>
       </a>
       </li>
