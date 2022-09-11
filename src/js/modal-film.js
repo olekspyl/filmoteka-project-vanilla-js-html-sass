@@ -5,7 +5,21 @@ const backdropRef = document.querySelector('.backdrop');
 const closeModalBtnRef = document.querySelector('.film-card__button-close');
 const modalRef = document.querySelector('.data-modal');
 
-const renderModalOneFilm = modalFilm => {
+const refs = {
+  closeModalBtn: document.querySelector('.film-card__button-close'),
+  modal: document.querySelector('.data-modal'),
+  modalOneFilmRef: document.querySelector('.film-card'),
+};
+
+export function initEventListener() {
+  refs.closeModalBtn.addEventListener('click', toggleModal);
+}
+
+export function toggleModal() {
+  refs.modal.classList.toggle('is-hidden');
+}
+
+export function renderModalOneFilm(modalFilm) {
   const {
     poster_path,
     title,
@@ -66,47 +80,5 @@ const renderModalOneFilm = modalFilm => {
       </div>
     </div>`;
 
-  modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
-};
-
-// document.addEventListener('keydown', event => {
-//   if (event.code === 'escape') {
-//     console.log(e.code);
-//     backdropRef.classList.add('visually-hidden');
-//   }
-
-// const testFilm = {
-//   adult: false,
-//   backdrop_path: '/jsoz1HlxczSuTx0mDl2h0lxy36l.jpg',
-//   genres: [28, 12, 14],
-//   genre_ids: [28, 12, 14],
-//   id: 616037,
-//   media_type: 'movie',
-//   original_language: 'en',
-//   original_title: 'Thor: Love and Thunder',
-//   overview:
-//     'After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.',
-//   popularity: 5471.218,
-//   poster_path: '/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg',
-//   release_date: '2022-07-06',
-//   title: 'Thor: Love and Thunder',
-//   video: false,
-//   vote_average: 6.819,
-//   vote_count: 2878,
-// };
-
-// renderModalOneFilm(testFilm);
-
-(() => {
-  const refs = {
-    openModalBtn: document.querySelector('[data-modal-open]'),
-    closeModalBtn: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
-  };
-
-  closeModalBtnRef.addEventListener('click', toggleModal);
-
-  function toggleModal() {
-    modalRef.classList.add('is-hidden');
-  }
-})();
+  refs.modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
+}
