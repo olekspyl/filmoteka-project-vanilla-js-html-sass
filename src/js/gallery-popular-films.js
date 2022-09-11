@@ -4,13 +4,14 @@ import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
 const requireData = new AxiosRequestService();
+const page = document.querySelector('a[data-page="home"]');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
+  // loadMoreBtn: document.querySelector('.load-more'),
 };
 
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 async function fetchData() {
   const data = await Promise.all([
@@ -82,10 +83,18 @@ async function renderGallery() {
 
   addToHTML(markup);
 }
-renderGallery();
+
+// console.log(
+//   'page',
+//   page.classList.contains('library-header-list__link--active')
+
+// );
+if (page.classList.contains('header-list__link--current')) {
+  renderGallery();
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 async function onLoadMore() {
-  requireData.page = 7;
   renderGallery();
   // const images = await requireImages.getImage();
   // const markup = createMarkup(images.hits);
