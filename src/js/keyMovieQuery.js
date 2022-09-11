@@ -52,10 +52,9 @@ async function renderGallery() {
 async function createMarkup(data) {
   //   const films = data.results;
   const markup = data.results
-    .map(
-      ({ id, poster_path, title, release_date, vote_average, genre_ids }) => {
-        const year = release_date.slice(0, 4);
-        return `
+    .map(({ id, poster_path, title, release_date, genre_ids }) => {
+      const year = release_date.slice(0, 4);
+      return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}'>
       <img id="${id}
@@ -68,17 +67,15 @@ async function createMarkup(data) {
       </div>
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}>
-      <ul class="card-set__genre" id="${id}>
-      <span class="card-set__genre-movie" >${genre_ids[0]}</span>
-      <span class="card-set__genre-movie" >&nbsp| ${year}</span>
-      <span class="card-set__genre-movie" >&nbsp| ${vote_average}</span>
-      </ul>
+      <div class="card-set__genre" id="${id}>
+      <span class="card-set__genre" >${genre_ids[0]}</span>
+      <span class="card-set__genre" >&nbsp| ${year}</span>
+      </div>
       </div>
       </a>
       </li>
       `;
-      }
-    )
+    })
     .join('');
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 }
