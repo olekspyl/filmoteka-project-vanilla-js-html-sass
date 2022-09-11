@@ -1,15 +1,17 @@
 import KeyMovieFetch from './keyMovieFetch';
+import { getMovieById } from './fetch-movie';
 
 const refs = {
   searchForm: document.querySelector('.header-search-form'),
   gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
+  seachMessage: document.querySelector('.header-message'),
+  // loadMoreBtn: document.querySelector('.load-more'),
 };
 
 const keyMovieFetch = new KeyMovieFetch();
 
 refs.searchForm.addEventListener('submit', onSearchSubmit);
-refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
+// refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
 
 async function onSearchSubmit(evt) {
   try {
@@ -20,14 +22,26 @@ async function onSearchSubmit(evt) {
     keyMovieFetch.resetPage();
     if (keyMovieFetch.value === '') {
       //   refs.loadMoreBtn.classList.add('is-hidden');
-      console.log('I can`t find an empty request. Please input something.');
+      refs.seachMessage.classList.remove('is-hidden');
+      refs.seachMessage.innerHTML =
+        'I can`t find an empty request. Please input something.';
+      // console.log('I can`t find an empty request. Please input something.');
       refs.gallery.innerHTML = '';
       return;
     }
 
     const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
+    fetch.genres = await keyMovieFetch.getGenre();
+    // console.log(fetch.genres);
     await createMarkup(fetch);
     console.log(fetch);
+    if (fetch.total_results === 0) {
+      refs.seachMessage.classList.remove('is-hidden');
+      refs.seachMessage.innerHTML =
+        'Search result not successful. Enter the correct movie name and try again.';
+      refs.gallery.innerHTML = '';
+      return;
+    }
     // refs.loadMoreBtn.classList.remove('is-hidden');
 
     evt.target.reset();
@@ -37,11 +51,11 @@ async function onSearchSubmit(evt) {
   }
 }
 
-function onLoadMoreClick() {
-  renderGallery();
-  refs.gallery.innerHTML = '';
-  //   refs.loadMoreBtn.classList.remove('is-hidden');
-}
+// function onLoadMoreClick() {
+//   renderGallery();
+//   refs.gallery.innerHTML = '';
+//   //   refs.loadMoreBtn.classList.remove('is-hidden');
+// }
 
 async function renderGallery() {
   const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
@@ -50,11 +64,21 @@ async function renderGallery() {
 }
 
 async function createMarkup(data) {
+  refs.seachMessage.classList.add('is-hidden');
   //   const films = data.results;
+  // console.log(data.genres);
   const markup = data.results
     .map(
       ({ id, poster_path, title, release_date, vote_average, genre_ids }) => {
         const year = release_date.slice(0, 4);
+        // let genreArr = [];
+        // for (const genre_id of genre_ids) {
+        //   for (const genre of genres) {
+        //     if (genre.id === genre_id) {
+        //       genreArr.push(genre.name);
+        //     }
+        //   }
+        // }
         return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}'>
