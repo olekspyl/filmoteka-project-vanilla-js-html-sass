@@ -1,25 +1,21 @@
-// .gallery {
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-items: center;
+.gallery {
+  padding-top: 20px;
+  padding-bottom: 40px;
 
-// }
-
-@media screen and (min-width: 768px) {
-  .card-set {
+  @media screen and (min-width: 768px) {
     display: flex;
     flex-wrap: wrap;
-    margin-left: -30px;
-    margin-top: -30px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
-}
-@media screen and (min-width: 1024px) {
-  .card-set {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -30px;
-    margin-top: -30px;
-  }
+  // @media screen and (min-width: 1024px) {
+  //   .card-set {
+  //     display: flex;
+  //     flex-wrap: wrap;
+  //     margin-left: -30px;
+  //     margin-top: -30px;
+  //   }
+  // }
 }
 
 .card-set__item {
@@ -30,37 +26,66 @@
   text-decoration: none;
 }
 
-@media screen and (max-width: 768px) {
-  .card-set__item:not(:last-child) {
-    margin-bottom: 30px;
+.card-set__item {
+  margin-bottom: 20px;
+  width: 280px;
+
+  @media screen and (min-width: 768px) {
+    width: calc((100% - 32px) / 2);
+    margin-right: 32px;
+    margin-bottom: 32px;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+    &:nth-last-child(-n + 2) {
+      margin-bottom: 0;
+    }
   }
-  .card-set__item {
-    width: 336px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .card-set__item {
-    width: calc(100% / 2 - 30px);
-    margin-left: 30px;
-    margin-top: 30px;
-  }
-  .card-set__item.card-set__item:nth-child(-n + 2) {
-    margin-top: 0;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .card-set__item {
-    width: calc(100% / 3 - 30px);
-    margin-left: 30px;
-    margin-top: 30px;
-  }
-  .card-set__item.card-set__item:nth-child(-n + 3) {
-    margin-top: 0;
+
+  @media screen and (min-width: 1280px) {
+    width: calc((100% - 32px) / 3);
+    margin-right: 16px;
+    margin-bottom: 32px;
+
+    &:nth-child(2n) {
+      margin-right: 16px;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    &:nth-last-child(3) {
+      margin-bottom: 0;
+    }
   }
 }
 
+// @media screen and (min-width: 768px) {
+//   .card-set__item {
+//     // width: calc(100% / 2 - 32px);
+//     width: 336px;
+//     margin-bottom: 32px;
+//   }
+//   .card-set__item.card-set__item:nth-child(n + 2) {
+//     margin-right: 0;
+//   }
+// }
+// @media screen and (min-width: 1024px) {
+//   .card-set__item {
+//     width: calc(100% / 3 - 30px);
+
+//     margin-top: 30px;
+//   }
+//   .card-set__item.card-set__item:nth-child(-n + 3) {
+//     margin-top: 0;
+//   }
+// }
+
 .card-set__img {
   border-radius: 5px;
+  width: 100%;
 }
 
 .card-set__title {
