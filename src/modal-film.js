@@ -72,3 +72,5 @@ const renderModalOneFilm = modalFilm => {
 //     console.log(e.code);
 //     backdropRef.classList.add('visually-hidden');
 //   }
+
+renderModalOneFilm();
