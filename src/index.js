@@ -4,3 +4,4 @@ import { loader } from './js/loader';
 import './js/teamModal.js';
 import { modal_film } from './modal-film';
 import { fetch } from './fetch-movie';
+import './btn-for-library';

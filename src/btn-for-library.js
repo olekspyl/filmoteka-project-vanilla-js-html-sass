@@ -3,10 +3,10 @@ import createMarkup from './js/markupForGallery';
 let watchedMovies = [];
 let queueMovies = [];
 
-const libraryLink = document.querySelector('.js-my-library');
+
 const libraryWrap = document.querySelector('.library-list');
 
-libraryLink.addEventListener("click", onLibraryLinkClick);
+
 
 function onLibraryLinkClick() {
     libraryWrap.innerHTML = ' ';
@@ -33,3 +33,5 @@ function onLibraryLinkClick() {
 function renderMarkup(savedMovies) {
     libraryWrap.innerHTML= createMarkup(savedMovies);
 }
+
+onLibraryLinkClick();
