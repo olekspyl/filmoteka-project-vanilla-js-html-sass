@@ -1,5 +1,9 @@
-// import { renderModalOneFilm } from './modal-film';
-
+import {
+  renderModalOneFilm,
+  toggleModal,
+  initEventListener,
+} from './modal-film';
+import { getMovieById } from './fetch-movie';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
@@ -13,11 +17,14 @@ const refs = {
 };
 
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
-refs.gallery.addEventListener('click', onGalleryClick);
-function onGalleryClick(e) {
+
+async function onGalleryClick(e) {
   e.preventDefault();
-  renderModalOneFilm();
-  // console.log('e.currentTarger: ', e.currentTarget);
+  e.stopPropagation();
+  const filmInfo = await getMovieById(e.currentTarget.id);
+  renderModalOneFilm(filmInfo);
+  toggleModal();
+  initEventListener();
 }
 
 async function fetchData() {

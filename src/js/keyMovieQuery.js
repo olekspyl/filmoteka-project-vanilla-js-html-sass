@@ -9,7 +9,7 @@ const refs = {
 const keyMovieFetch = new KeyMovieFetch();
 
 refs.searchForm.addEventListener('submit', onSearchSubmit);
-refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
+// refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
 
 async function onSearchSubmit(evt) {
   try {
