@@ -67,19 +67,8 @@ const renderModalOneFilm = modalFilm => {
   modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
 };
 
-document.addEventListener('keydown', event => {
-  if (event.code === 'escape') {
-    console.log(e.code);
-    backdropRef.classList.add('visually-hidden');
-  }
-  if (event.code === 'e') {
-    backdropRef.classList.remove('visually-hidden');
-  }
-});
-
-// const onKeyPress = e => {
-//   if (e.code === 'Escape') {
-//     refs.body.style.overflow = 'visible';
-//     refs.body.removeEventListener('keydown', onKeyPress);
+// document.addEventListener('keydown', event => {
+//   if (event.code === 'escape') {
+//     console.log(e.code);
+//     backdropRef.classList.add('visually-hidden');
 //   }
-// };
