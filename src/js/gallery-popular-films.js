@@ -1,5 +1,5 @@
 // import { renderModalOneFilm } from './modal-film';
-
+import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
@@ -121,3 +121,11 @@ function addToHTML(markup) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
+
+pagination.on('afterMove', event => {
+  const currentPage = event.page;
+  // console.log(currentPage);
+  requireData.page = currentPage;
+  renderGallery();
+});
+// console.log('pag cur page', pagination.getCurrentPage());
