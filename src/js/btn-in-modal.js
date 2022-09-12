@@ -1,4 +1,4 @@
-import { getMovieById } from './js/fetch-movie';
+import { getMovieById } from './fetch-movie';
 import Notiflix from 'notiflix';
 
 let watchedMovies = [];
@@ -8,8 +8,6 @@ const modalWrap = document.querySelector('.film-card');
 modalWrap.addEventListener('click', onModalClick);
 
 function onModalClick(evt) {
-    // console.log(evt.target);
-
     if (evt.target.classList.contains('description-button__watched')) {
         onBtnAddToWatchedClick(evt);
     }
