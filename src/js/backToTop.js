@@ -1,4 +1,4 @@
-mybutton = document.querySelector('.back-to-top');
+const mybutton = document.querySelector('.back-to-top');
 mybutton.addEventListener('click', topFunction);
 
 window.onscroll = function () {
