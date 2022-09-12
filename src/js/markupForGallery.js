@@ -7,7 +7,7 @@ export default function createMarkup(films) {
       <a href='#' id='${film.id}' class="card-link">
       <img id="${film.id}"
           loading="lazy"
-          src="${film.base_url}w342/${film.poster_path}"
+          src="${film.base_url}original/${film.poster_path}"
           alt="${film.title}"
           class="card-set__img "
           
