@@ -8,6 +8,7 @@ const requireData = new AxiosRequestService();
 
 let config;
 let total_films;
+export let GENRES_FULL_INFO;
 
 const refs = {
   page: document.querySelector('a[data-page="home"]'),
@@ -18,7 +19,7 @@ const refs = {
 
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
-async function onGalleryClick(e) {
+export async function onGalleryClick(e) {
   e.preventDefault();
   e.stopPropagation();
   const filmInfo = await getMovieById(e.currentTarget.id);
@@ -29,13 +30,15 @@ async function fetchConfig() {
   config = await requireData.getConfig();
   console.log('Config', config);
 }
+
 async function fetchData() {
   const data = await Promise.all([
     requireData.getConfig(),
     requireData.getGenre(),
     requireData.getFilms(),
   ]);
-  // console.log('data', data);
+  console.log('data', data);
+  GENRES_FULL_INFO = data[1].genres;
   return data;
 }
 
@@ -111,7 +114,7 @@ async function onLoadMore() {
   pagination.reset(total_films);
 }
 
-function addToHTML(markup) {
+export function addToHTML(markup) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   const galleryItems = document.querySelectorAll('.card-set__item');
 
