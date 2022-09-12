@@ -89,7 +89,7 @@ async function createMarkup(data) {
       <a href='#' id='${id}' class="card-link">
       <img id="${id}
           loading="lazy"
-          src="http://image.tmdb.org/t/p/w342/${poster_path}"
+          src="http://image.tmdb.org/t/p/original/${poster_path}"
           alt="${title}"
           class="card-set__img "
 
