@@ -1,23 +1,34 @@
-// import { renderModalOneFilm } from './modal-film';
-
+import { renderModalOneFilm, onOpenModal } from './modal-film';
+import { getMovieById } from './fetch-movie';
+import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
 const requireData = new AxiosRequestService();
-const page = document.querySelector('a[data-page="home"]');
+
+let config;
+let total_films;
+export let GENRES_FULL_INFO;
 
 const refs = {
+  page: document.querySelector('a[data-page="home"]'),
   gallery: document.querySelector('.gallery'),
   cards: document.querySelectorAll('.card-set__item'),
   // loadMoreBtn: document.querySelector('.load-more'),
 };
 
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
-refs.gallery.addEventListener('click', onGalleryClick);
-function onGalleryClick(e) {
+
+export async function onGalleryClick(e) {
   e.preventDefault();
-  renderModalOneFilm();
-  // console.log('e.currentTarger: ', e.currentTarget);
+  e.stopPropagation();
+  const filmInfo = await getMovieById(e.currentTarget.id);
+  renderModalOneFilm(filmInfo);
+  onOpenModal();
+}
+async function fetchConfig() {
+  config = await requireData.getConfig();
+  console.log('Config', config);
 }
 
 async function fetchData() {
@@ -26,7 +37,8 @@ async function fetchData() {
     requireData.getGenre(),
     requireData.getFilms(),
   ]);
-  // console.log('data', data);
+  console.log('data', data);
+  GENRES_FULL_INFO = data[1].genres;
   return data;
 }
 
@@ -36,8 +48,9 @@ async function modifyData() {
   // console.log('images', images);
   const { genres } = data[1];
   // console.log('genres', genres);
-  const { results } = data[2];
-  // console.log('reults', results);
+
+  const { results, total_results } = data[2];
+  total_films = total_results;
 
   const filmAddYearRelease = results.map(result => {
     const { release_date } = result;
@@ -87,28 +100,21 @@ async function renderGallery() {
   clearMarkup();
   const popularFilms = await modifyData();
   const markup = createMarkup(popularFilms);
-
   addToHTML(markup);
+  // console.log('in renderGallery');
 }
 
-if (page.classList.contains('header-list__link--current')) {
-  renderGallery();
+if (refs.page.classList.contains('header-list__link--current')) {
+  onLoadMore();
 }
 
 async function onLoadMore() {
-  renderGallery();
-  // const images = await requireImages.getImage();
-  // const markup = createMarkup(images.hits);
-  // totalHits -= images.hits.length;
-  // addToHTML(markup);
-  // if (totalHits === 0 || totalHits < 0) {
-  //   return;
-  // }
-  // toggleLoadMoreBtn(totalHits);
-  // gallery.refresh();
+  const gallery = await renderGallery();
+  // console.log('total_films', total_films);
+  pagination.reset(total_films);
 }
 
-function addToHTML(markup) {
+export function addToHTML(markup) {
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   const galleryItems = document.querySelectorAll('.card-set__item');
 
@@ -121,3 +127,10 @@ function addToHTML(markup) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
+
+pagination.on('afterMove', event => {
+  const currentPage = event.page;
+  // console.log(pagination.currentPage);
+  requireData.page = currentPage;
+  renderGallery();
+});
