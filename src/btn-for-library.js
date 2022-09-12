@@ -38,6 +38,7 @@ function onLibraryLinkClick() {
 }
 
 function renderMarkup(savedMovies) {
+  console.log(savedMovies);
   libraryWrap.innerHTML = createMarkup(savedMovies);
 }
 
