@@ -1,6 +1,8 @@
 .team__modal {
   overflow-x: hidden;
+  overflow-y: scroll;
   padding: 10px;
+  max-height: 800px;
 
   background-color: #f7f7f7;
 }

@@ -214,6 +214,12 @@
   margin-bottom: 20px;
 }
 
+.film-card__wrapper {
+  @media screen and(min-width:768px) {
+    display: flex;
+  }
+}
+
 .description-about__title {
   font-weight: 500;
   font-size: 12px;
