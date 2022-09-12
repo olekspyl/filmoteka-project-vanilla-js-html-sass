@@ -1,8 +1,4 @@
-import {
-  renderModalOneFilm,
-  toggleModal,
-  initEventListener,
-} from './modal-film';
+import { renderModalOneFilm, onOpenModal } from './modal-film';
 import { getMovieById } from './fetch-movie';
 import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
@@ -27,8 +23,7 @@ async function onGalleryClick(e) {
   e.stopPropagation();
   const filmInfo = await getMovieById(e.currentTarget.id);
   renderModalOneFilm(filmInfo);
-  toggleModal();
-  initEventListener();
+  onOpenModal();
 }
 async function fetchConfig() {
   config = await requireData.getConfig();
