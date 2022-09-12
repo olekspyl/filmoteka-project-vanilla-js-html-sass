@@ -4,13 +4,17 @@ import {
   initEventListener,
 } from './modal-film';
 import { getMovieById } from './fetch-movie';
+import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
 
 const requireData = new AxiosRequestService();
-const page = document.querySelector('a[data-page="home"]');
+
+let config;
+let total_films;
 
 const refs = {
+  page: document.querySelector('a[data-page="home"]'),
   gallery: document.querySelector('.gallery'),
   cards: document.querySelectorAll('.card-set__item'),
   // loadMoreBtn: document.querySelector('.load-more'),
@@ -26,7 +30,10 @@ async function onGalleryClick(e) {
   toggleModal();
   initEventListener();
 }
-
+async function fetchConfig() {
+  config = await requireData.getConfig();
+  console.log('Config', config);
+}
 async function fetchData() {
   const data = await Promise.all([
     requireData.getConfig(),
@@ -43,8 +50,9 @@ async function modifyData() {
   // console.log('images', images);
   const { genres } = data[1];
   // console.log('genres', genres);
-  const { results } = data[2];
-  // console.log('reults', results);
+
+  const { results, total_results } = data[2];
+  total_films = total_results;
 
   const filmAddYearRelease = results.map(result => {
     const { release_date } = result;
@@ -94,25 +102,18 @@ async function renderGallery() {
   clearMarkup();
   const popularFilms = await modifyData();
   const markup = createMarkup(popularFilms);
-
   addToHTML(markup);
+  // console.log('in renderGallery');
 }
 
-if (page.classList.contains('header-list__link--current')) {
-  renderGallery();
+if (refs.page.classList.contains('header-list__link--current')) {
+  onLoadMore();
 }
 
 async function onLoadMore() {
-  renderGallery();
-  // const images = await requireImages.getImage();
-  // const markup = createMarkup(images.hits);
-  // totalHits -= images.hits.length;
-  // addToHTML(markup);
-  // if (totalHits === 0 || totalHits < 0) {
-  //   return;
-  // }
-  // toggleLoadMoreBtn(totalHits);
-  // gallery.refresh();
+  const gallery = await renderGallery();
+  // console.log('total_films', total_films);
+  pagination.reset(total_films);
 }
 
 function addToHTML(markup) {
@@ -128,3 +129,10 @@ function addToHTML(markup) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
+
+pagination.on('afterMove', event => {
+  const currentPage = event.page;
+  // console.log(pagination.currentPage);
+  requireData.page = currentPage;
+  renderGallery();
+});
