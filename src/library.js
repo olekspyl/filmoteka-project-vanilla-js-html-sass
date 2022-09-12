@@ -1,5 +1,5 @@
 import { loader } from './js/loader';
 import './js/teamModal.js';
 import { pagination } from './js/pagination';
-import './btn-for-library';
-import './btn-in-modal';
+import './js/btn-for-library';
+import './js/btn-in-modal';
