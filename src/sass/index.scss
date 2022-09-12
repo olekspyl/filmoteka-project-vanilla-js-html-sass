@@ -7,11 +7,11 @@
 @import './components/galleryMarkup';
 @import './gallery';
 @import './helpers/pagination';
-
-
+@import './components/backToTop';
 @import './footer';
 // бэкдроп для модалок
-@import './components/backdrop'; // модалка тим мемберов
+@import './components/backdrop';
+// модалка тим мемберов
 
 @import './components/modal-team';
 @import './components/library-empty';

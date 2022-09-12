@@ -1,4 +1,6 @@
 import KeyMovieFetch from './keyMovieFetch';
+import { addToHTML } from './gallery-popular-films';
+import { GENRES_FULL_INFO } from './gallery-popular-films';
 
 const refs = {
   searchForm: document.querySelector('.header-search-form'),
@@ -26,6 +28,7 @@ async function onSearchSubmit(evt) {
     }
 
     const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
+    console.log('fetch', fetch);
     await createMarkup(fetch);
     console.log(fetch);
     // refs.loadMoreBtn.classList.remove('is-hidden');
@@ -33,7 +36,7 @@ async function onSearchSubmit(evt) {
     evt.target.reset();
   } catch (error) {
     // refs.loadMoreBtn.classList.add('is-hidden');
-    console.log(error.message);
+    console.log(error);
   }
 }
 
@@ -49,14 +52,29 @@ async function renderGallery() {
   //   console.log(fetch);
 }
 
+function matchGenres(genreIdArr, genresFool) {
+  let result = [];
+
+  genreIdArr.forEach(genreId => {
+    const matchGenre = genresFool.find(genre => genreId === genre.id);
+
+    if (matchGenre) {
+      result.push(matchGenre.name);
+    }
+  });
+  return result;
+}
+
 async function createMarkup(data) {
   //   const films = data.results;
+  console.log();
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       const year = release_date.slice(0, 4);
+      const genresName = matchGenres(genre_ids, GENRES_FULL_INFO);
       return `
       <li class="card-set__item" id="${id}">
-      <a href='#' id='${id}'>
+      <a href='#' id='${id}' class="card-link">
       <img id="${id}
           loading="lazy"
           src="http://image.tmdb.org/t/p/w342/${poster_path}"
@@ -64,18 +82,16 @@ async function createMarkup(data) {
           class="card-set__img "
 
       />
-      </div>
       <h3 class="card-set__title">${title}</h3>
-      <div class="card-set__description" id="${id}>
-      <div class="card-set__genre" id="${id}>
-      <span class="card-set__genre" >${genre_ids[0]}</span>
-      <span class="card-set__genre" >&nbsp| ${year}</span>
-      </div>
-      </div>
+      <div class="card-set__description" id="${id}">
+      <span class="card-set__genre" id="${id}"> ${genresName.join(
+        ', '
+      )} &nbsp| ${year}</span>
+        </div>
       </a>
       </li>
       `;
     })
     .join('');
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+  addToHTML(markup);
 }

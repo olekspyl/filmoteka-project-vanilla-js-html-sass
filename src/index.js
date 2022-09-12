@@ -5,4 +5,5 @@ import './js/teamModal.js';
 import { fetch } from './js/fetch-movie';
 import { pagination } from './js/pagination';
 import { keyMovieQuery } from './js/keyMovieQuery';
+import './js/backToTop';
 import './btn-in-modal';
