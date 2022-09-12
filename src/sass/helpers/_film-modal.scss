@@ -183,3 +183,9 @@
 .film-card__description-about {
   margin-bottom: 20px;
 }
+
+.film-card__wrapper {
+  @media screen and(min-width:768px) {
+    display: flex;
+  }
+}

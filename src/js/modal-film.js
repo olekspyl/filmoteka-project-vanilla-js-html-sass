@@ -9,14 +9,34 @@ const refs = {
   closeModalBtn: document.querySelector('.film-card__button-close'),
   modal: document.querySelector('.data-modal'),
   modalOneFilmRef: document.querySelector('.film-card'),
+  modalOneFilmWrap: document.querySelector('.film-card__wrapper'),
 };
 
-export function initEventListener() {
-  refs.closeModalBtn.addEventListener('click', toggleModal);
+export function addInitModalEventListener() {
+  window.addEventListener('keydown', onEscapePress);
+  refs.closeModalBtn.addEventListener('click', onCloseModal);
 }
 
-export function toggleModal() {
-  refs.modal.classList.toggle('is-hidden');
+export function removeInitModalEventListener() {
+  window.removeEventListener('keydown', onEscapePress);
+  refs.closeModalBtn.removeEventListener('click', onCloseModal);
+}
+export function onOpenModal() {
+  refs.modal.classList.remove('is-hidden');
+  addInitModalEventListener();
+}
+
+export function onCloseModal() {
+  refs.modal.classList.add('is-hidden');
+  refs.modalOneFilmWrap.innerHTML = '<div class="film-card__wrapper"></div>';
+  removeInitModalEventListener();
+}
+
+function onEscapePress(evt) {
+  const isEscKey = evt.code === 'Escape';
+  if (isEscKey) {
+    onCloseModal();
+  }
 }
 
 export function renderModalOneFilm(modalFilm) {
@@ -34,7 +54,8 @@ export function renderModalOneFilm(modalFilm) {
 
   const genresList = genres.map(item => item.name).join(', ');
 
-  const markupModalOneFilm = `<div class="film-card__image-block">
+  const markupModalOneFilm = `<div class="film-card__wrapper">
+        <div class="film-card__image-block">
         <img
           class="film-card__image"
           src="https://image.tmdb.org/t/p/original${poster_path}"
@@ -78,7 +99,8 @@ export function renderModalOneFilm(modalFilm) {
           </button>
         </div>
       </div>
+    </div>
     </div>`;
 
-  refs.modalOneFilmRef.insertAdjacentHTML('afterbegin', markupModalOneFilm);
+  refs.modalOneFilmWrap.innerHTML = markupModalOneFilm;
 }
