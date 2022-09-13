@@ -12,6 +12,8 @@ const refs = {
   modalOneFilmWrap: document.querySelector('.film-card__wrapper'),
 };
 
+backdropRef.addEventListener('click', onBackdropClick);
+
 export function addInitModalEventListener() {
   window.addEventListener('keydown', onEscapePress);
   refs.closeModalBtn.addEventListener('click', onCloseModal);
@@ -21,6 +23,13 @@ export function removeInitModalEventListener() {
   window.removeEventListener('keydown', onEscapePress);
   refs.closeModalBtn.removeEventListener('click', onCloseModal);
 }
+
+function onBackdropClick(event) {
+  if (event.currentTarget === event.target) {
+    onCloseModal();
+  }
+}
+
 export function onOpenModal() {
   refs.modal.classList.remove('is-hidden');
   addInitModalEventListener();
