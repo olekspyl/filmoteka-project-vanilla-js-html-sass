@@ -5,7 +5,17 @@ export function filmAddYearRelease(dataForModify) {
 
   const filmAddYearRelease = results.map(result => {
     const { release_date } = result;
-    const releaseYear = release_date.slice(0, 4);
+    let releaseYear;
+    if (release_date !== undefined) {
+      if (release_date.length > 4) {
+        releaseYear = release_date.slice(0, 4);
+      } else {
+        releaseYear = '';
+      }
+    } else {
+      releaseYear = '';
+    }
+    // releaseYear = release_date.slice(0, 4);
     return { releaseYear, ...result };
   });
   //   console.log('filmAddYearRelease', filmAddYearRelease);
@@ -63,4 +73,21 @@ export function filmAddUrl(dataForModify) {
 
   //   console.log('filmAddUrl', filmAddUrl);
   return filmAddUrl;
+}
+
+export function filmCheckImgUrl(dataForModify) {
+  //   const { results } = dataForModify;
+  //   console.log(' results', results);
+  const filmCheckImgUrl = dataForModify.map(result => {
+    const { poster_path } = result;
+    if (poster_path === null || poster_path === undefined) {
+      result.base_url = 'images/';
+      result.poster_path = 'no-poster.jpg';
+      return result;
+    }
+    return result;
+  });
+
+  console.log('filmCheckImgUrl', filmCheckImgUrl);
+  return filmCheckImgUrl;
 }

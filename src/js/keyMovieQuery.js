@@ -42,7 +42,7 @@ async function onSearchSubmit(evt) {
       const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
       console.log('fetch', fetch);
       total_films = fetch.total_results;
-      console.log(total_films);
+      // console.log(total_films);
       if (total_films) {
         refs.gallery.innerHTML = '';
         pagination.reset(total_films);
@@ -101,6 +101,7 @@ function matchGenres(genreIdArr, genresFool) {
       result.push(matchGenre.name);
     }
   });
+  console.log('result', result);
   return result;
 }
 
@@ -112,8 +113,28 @@ async function createMarkupKey(data) {
   console.log();
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
-      const year = release_date.slice(0, 4);
-      const genresName = matchGenres(genre_ids, GENRES_FULL_INFO);
+      let year;
+      // const length_release_date = 'sss'.length;
+      // console.log('date.length', release_date);
+      if (release_date !== undefined) {
+        if (release_date.length > 4) {
+          year = release_date.slice(0, 4);
+        } else {
+          year = '';
+        }
+      } else {
+        year = '';
+      }
+
+      const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
+      // console.log('genr', genr);
+
+      // const genresList = genr.map(item => item.name).slice(0, 2);
+      // // debugger;
+      // console.log('genresList', genresList);
+      // genresList.push('Other');
+
+      // const formatedGenres = genresList.join(', ');
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">
@@ -136,7 +157,7 @@ async function createMarkupKey(data) {
      
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}"> ${genresName.join(
+      <span class="card-set__genre" id="${id}"> ${genr.join(
         ', '
       )} &nbsp| ${year}</span>
         </div>

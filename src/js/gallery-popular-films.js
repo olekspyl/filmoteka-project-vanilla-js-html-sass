@@ -7,6 +7,7 @@ import {
   filmAddYearRelease,
   filmAddGenreList,
   filmAddUrl,
+  filmCheckImgUrl,
 } from './functions-for-popular-gallery';
 
 const requireData = new AxiosRequestService();
@@ -65,7 +66,7 @@ async function loadPage() {
   // console.log('configAndGenre', configAndGenreData);
   const filmsData = await fetchFilms();
   pagination.reset(filmsData.total_results);
-  console.log('films Data', filmsData);
+  // console.log('films Data', filmsData);
   const dataForMurkup = preperDataForMurkup({
     configAndGenreData,
     filmsData,
@@ -86,6 +87,7 @@ function preperDataForMurkup(dataForModify) {
   modifedData = filmAddGenreList({ genres, modifedData });
   modifedData = filmAddUrl({ configAndGenreData, modifedData });
   // console.log('configAndGenreData', configAndGenreData);
+  modifedData = filmCheckImgUrl(modifedData);
   return modifedData;
 }
 
