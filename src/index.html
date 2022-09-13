@@ -2,7 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <title>Films</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +29,9 @@
     <!-- ❗️❗️❗️ Add partials like so for every page -->
     <!-- <include src="./partials/example.html"></include> -->
     <include src="./partials/header-in.html"></include>
+    
     <main class="container" id="index-home">
+      <include src="./partials/darkOn.html"></include>
       <include src="./partials/loader.html"></include>
       <include src="./partials/gallery.html"></include>
       <include src="./partials/pagination.html"></include>

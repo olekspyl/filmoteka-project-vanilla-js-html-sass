@@ -3,21 +3,24 @@ import { getMovieById } from './fetch-movie';
 import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
+import {
+  filmAddYearRelease,
+  filmAddGenreList,
+  filmAddUrl,
+} from './functions-for-popular-gallery';
 
 const requireData = new AxiosRequestService();
 
-let config;
+let config = {};
 let total_films;
 export let GENRES_FULL_INFO;
+export let SEARCH_ACTIVE = 0;
 
 const refs = {
   page: document.querySelector('a[data-page="home"]'),
   gallery: document.querySelector('.gallery'),
   cards: document.querySelectorAll('.card-set__item'),
-  // loadMoreBtn: document.querySelector('.load-more'),
 };
-
-// refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 export async function onGalleryClick(e) {
   e.preventDefault();
@@ -26,92 +29,91 @@ export async function onGalleryClick(e) {
   renderModalOneFilm(filmInfo);
   onOpenModal();
 }
-async function fetchConfig() {
-  config = await requireData.getConfig();
-  console.log('Config', config);
+function fetchFilms() {
+  const films = requireData.getFilms();
+  return films;
 }
 
-async function fetchData() {
+// async function fetchData() {
+//   const data = await Promise.all([
+//     requireData.getConfig(),
+//     requireData.getGenre(),
+//     requireData.getFilms(),
+//   ]);
+//   console.log('data', data);
+//   GENRES_FULL_INFO = data[1].genres;
+//   return data;
+// }
+async function fetchDataConfigAndGenre() {
   const data = await Promise.all([
     requireData.getConfig(),
     requireData.getGenre(),
-    requireData.getFilms(),
   ]);
-  console.log('data', data);
-  GENRES_FULL_INFO = data[1].genres;
-  return data;
-}
 
-async function modifyData() {
-  const data = await fetchData();
-  const { images } = data[0];
-  // console.log('images', images);
+  const {
+    images: { base_url, poster_sizes },
+  } = data[0];
+
   const { genres } = data[1];
-  // console.log('genres', genres);
 
-  const { results, total_results } = data[2];
-  total_films = total_results;
+  console.log('data', data);
+  GENRES_FULL_INFO = genres;
+  return { base_url, poster_sizes, genres };
+}
+//////////////////////////////////////////////////////////////////////////////
+async function loadPage() {
+  const configAndGenreData = await fetchDataConfigAndGenre();
+  config = configAndGenreData;
+  // console.log('configAndGenre', configAndGenreData);
+  const filmsData = await fetchFilms();
 
-  const filmAddYearRelease = results.map(result => {
-    const { release_date } = result;
-    const releaseYear = release_date.slice(0, 4);
-    return { releaseYear, ...result };
+  pagination.reset(filmsData.total_results);
+
+  console.log('films Data', filmsData);
+  const dataForMurkup = preperDataForMurkup({
+    configAndGenreData,
+    filmsData,
   });
-  // console.log('filmAddYearRelise', filmAddYearRelise);
+  // pagination.reset(total_films);
+  // console.log('DatdataForMurkupa', dataForMurkup);
+  renderGallery(dataForMurkup);
+}
+//////////////////////////////////////////////////////////////////////////////////////
 
-  const filmAddGenreList = filmAddYearRelease.map(film => {
-    const { genre_ids } = film;
-    const filmGenreList = genresList(genre_ids);
-    return { filmGenreList, ...film };
-  });
-  // console.log('filmGenreList', filmAddGenreList);
-  const filmAddUrl = filmAddGenreList.map(film => {
-    const { base_url } = images;
-
-    return { base_url, ...film };
-  });
-  // console.log('fbase_url', filmAddUrl);
-
-  function genresList(genre_ids) {
-    const genresNames = [];
-    for (let i = 0; i < genre_ids.length; i += 1) {
-      if (i < 2) {
-        genresNames.push(genresById(genre_ids[i]));
-      } else {
-        genresNames.push('Other');
-        break;
-      }
-    }
-    return genresNames.join(', ');
-  }
-
-  function genresById(id) {
-    for (const genre of genres) {
-      if (genre.id === id) {
-        //   console.log(genre.name);
-        return genre.name;
-      }
-    }
-  }
-  return filmAddUrl;
+function preperDataForMurkup(dataForModify) {
+  const {
+    configAndGenreData: { genres },
+    configAndGenreData,
+  } = dataForModify;
+  // console.log('dataForModify', dataForModify);
+  let modifedData = filmAddYearRelease(dataForModify);
+  modifedData = filmAddGenreList({ genres, modifedData });
+  modifedData = filmAddUrl({ configAndGenreData, modifedData });
+  // console.log('configAndGenreData', configAndGenreData);
+  return modifedData;
 }
 
-async function renderGallery() {
+function renderGallery(popularFilms) {
   clearMarkup();
-  const popularFilms = await modifyData();
+  // const popularFilms = await modifyData();
   const markup = createMarkup(popularFilms);
   addToHTML(markup);
-  // console.log('in renderGallery');
 }
 
 if (refs.page.classList.contains('header-list__link--current')) {
-  onLoadMore();
+  // onLoadMore();
+  loadPage();
 }
 
-async function onLoadMore() {
-  const gallery = await renderGallery();
-  // console.log('total_films', total_films);
-  pagination.reset(total_films);
+export async function onPaginLoadMore(currentPage) {
+  requireData.page = currentPage;
+  const filmsData = await fetchFilms();
+  const configAndGenreData = config;
+  const dataForMurkup = preperDataForMurkup({
+    configAndGenreData,
+    filmsData,
+  });
+  renderGallery(dataForMurkup);
 }
 
 export function addToHTML(markup) {
@@ -128,9 +130,11 @@ function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
 
-pagination.on('afterMove', event => {
-  const currentPage = event.page;
-  // console.log(pagination.currentPage);
-  requireData.page = currentPage;
-  renderGallery();
-});
+// pagination.on('afterMove', event => {
+//   const currentPage = event.page;
+//   if (!SEARCH_ACTIVE) {
+//     onPaginLoadMore(currentPage);
+//   }
+//   // console.log(pagination.currentPage);
+//   // requireData.page = currentPage;
+// });

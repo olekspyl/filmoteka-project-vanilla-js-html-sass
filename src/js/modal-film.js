@@ -24,12 +24,18 @@ export function removeInitModalEventListener() {
 export function onOpenModal() {
   refs.modal.classList.remove('is-hidden');
   addInitModalEventListener();
+  if (onOpenModal) {
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 export function onCloseModal() {
   refs.modal.classList.add('is-hidden');
   refs.modalOneFilmWrap.innerHTML = '<div class="film-card__wrapper"></div>';
   removeInitModalEventListener();
+  if (onCloseModal) {
+    document.body.style.overflow = '';
+  }
 }
 
 function onEscapePress(evt) {

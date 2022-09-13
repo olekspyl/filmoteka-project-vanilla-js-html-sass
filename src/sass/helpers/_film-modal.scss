@@ -10,10 +10,6 @@
   overflow: auto;
 }
 
-// .is-hidden {
-//   visibility: hidden;
-// }
-
 .film-card {
   background-color: var(--white-color);
   width: 280px;
@@ -24,14 +20,14 @@
   transform: translate(-50%, -50%);
   padding: 48px 20px 40px 20px;
 
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     margin-top: 0px;
     height: 552px;
     width: 704px;
     display: flex;
     padding: 40px 72px 40px 36px;
   }
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     height: 558px;
     width: 814px;
     padding: 40px 16px 40px 16px;
@@ -39,7 +35,7 @@
 }
 
 .film-card__box {
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     display: flex;
   }
 }
@@ -53,7 +49,7 @@
   margin-top: 10px;
   margin-right: 8px;
   margin-bottom: 10px;
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$desktop) {
     margin-bottom: 0;
     margin-top: 8px;
     margin-right: 8px;
@@ -62,10 +58,10 @@
 
 .film-card__image-block {
   margin-right: 0;
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     margin-right: 68px;
   }
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     margin-right: 16px;
   }
 }
@@ -75,11 +71,11 @@
   height: 357px;
   margin: 0 auto;
   border-radius: 5px;
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     width: 264px;
     height: 374px;
   }
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     width: 375px;
     height: 478px;
   }
@@ -95,11 +91,11 @@
   line-height: 23px;
   margin-top: 20px;
   margin-bottom: 20px;
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     margin-top: 0;
     margin-bottom: 20px;
   }
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     font-size: 30px;
     line-height: 35px;
   }
@@ -120,7 +116,7 @@
   margin-right: 40px;
   margin-bottom: 8px;
   color: var(--description-color);
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     margin-right: 83px;
   }
 }
@@ -131,11 +127,11 @@
 }
 
 .description-about__text {
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     width: 264px;
   }
-  @media screen and(min-width:1024px) {
-    width: 391px;
+  @media screen and(min-width:$desktop) {
+    width: 380px;
   }
 }
 
@@ -193,10 +189,10 @@
     color: var(--white-color);
     border: none;
   }
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     width: 125px;
   }
-  @media screen and(min-width:1024px) {
+  @media screen and(min-width:$desktop) {
     width: 136px;
   }
 }
@@ -215,7 +211,7 @@
 }
 
 .film-card__wrapper {
-  @media screen and(min-width:768px) {
+  @media screen and(min-width:$tablet) {
     display: flex;
   }
 }
@@ -232,4 +228,6 @@
   font-size: 12px;
   line-height: 20px;
   color: var(--black-color);
+  max-height: 200px;
+  overflow-y: auto;
 }
