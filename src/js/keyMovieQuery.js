@@ -2,6 +2,7 @@ import KeyMovieFetch from './keyMovieFetch';
 import { addToHTML } from './gallery-popular-films';
 import { GENRES_FULL_INFO, onPaginLoadMore } from './gallery-popular-films';
 import { pagination } from './pagination';
+import { topFunction } from './backToTop';
 
 const refs = {
   searchForm: document.querySelector('.header-search-form'),
@@ -173,7 +174,9 @@ pagination.on('afterMove', event => {
     console.log(keyMovieFetch.page);
     keyMovieFetch.page = currentPage;
     renderGalleryKey();
+    topFunction();
   } else {
     onPaginLoadMore(currentPage);
+    topFunction();
   }
 });
