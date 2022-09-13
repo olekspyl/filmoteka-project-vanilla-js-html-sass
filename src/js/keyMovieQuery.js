@@ -3,6 +3,7 @@ import { addToHTML } from './gallery-popular-films';
 import { GENRES_FULL_INFO, onPaginLoadMore } from './gallery-popular-films';
 import { pagination } from './pagination';
 import { topFunction } from './backToTop';
+import { filmCheckImgUrl } from './functions-for-popular-gallery';
 
 const refs = {
   searchForm: document.querySelector('.header-search-form'),
@@ -26,7 +27,7 @@ async function onSearchSubmit(evt) {
     refs.paginationCont.classList.remove('is-hidden');
     // refs.gallery.innerHTML = '';
     keyMovieFetch.resetPage();
-    console.log(evt.currentTarget.elements.searchQuery.value);
+    // console.log(evt.currentTarget.elements.searchQuery.value);
     keyMovieFetch.value = evt.currentTarget.elements.searchQuery.value;
     if (keyMovieFetch.value === '') {
       //   refs.loadMoreBtn.classList.add('is-hidden');
@@ -41,13 +42,18 @@ async function onSearchSubmit(evt) {
     }
     if (keyMovieFetch.value !== '') {
       const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
-      console.log('fetch', fetch);
+      // console.log('fetch', fetch);
       total_films = fetch.total_results;
       // console.log(total_films);
       if (total_films) {
         refs.gallery.innerHTML = '';
         pagination.reset(total_films);
-        await createMarkupKey(fetch);
+        const { results } = fetch;
+
+        const CheckImgUrl = filmCheckImgUrl(results);
+        // console.log('fetch in SearchSubmit', fetch);
+        // console.log('CheckImgUrl in SearchSubmit', { fetch, ...CheckImgUrl });
+        await createMarkupKey({ ...fetch, ...CheckImgUrl });
         SEARCH_ACTIVE = true;
         // console.log('SEARCH_ACTIVE', SEARCH_ACTIVE);
       }
@@ -86,7 +92,13 @@ async function renderGalleryKey() {
   if (keyMovieFetch.value !== '') {
     const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
     console.log('fetch in render', fetch);
-    await createMarkupKey(fetch);
+    const { results } = fetch;
+
+    const CheckImgUrl = filmCheckImgUrl(results);
+    // console.log('fetch in SearchSubmit', fetch);
+    // console.log('CheckImgUrl in SearchSubmit', { fetch, ...CheckImgUrl });
+    await createMarkupKey({ ...fetch, ...CheckImgUrl });
+    // await createMarkupKey(fetch);
     // pagination.reset(fetch.total_results);
     // pagination.reset(total_films);
   } else return;
@@ -102,7 +114,6 @@ function matchGenres(genreIdArr, genresFool) {
       result.push(matchGenre.name);
     }
   });
-  console.log('result', result);
   return result;
 }
 
@@ -111,7 +122,7 @@ async function createMarkupKey(data) {
   refs.searchMessage.classList.add('is-hidden');
 
   //   const films = data.results;
-
+  console.log();
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       let year;
@@ -161,7 +172,9 @@ async function createMarkupKey(data) {
      
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}"> ${formatedGenres} &nbsp| ${year}</span>
+      <span class="card-set__genre" id="${id}"> ${genresName.join(
+        ', '
+      )} &nbsp| ${year}</span>
         </div>
       </a>
       </li>
