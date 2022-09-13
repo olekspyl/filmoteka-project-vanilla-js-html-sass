@@ -129,11 +129,16 @@ async function createMarkupKey(data) {
 
       const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
 
-      const genresList = genr.slice(0, 2);
+      let formatedGenres;
+      if (genr.length > 2) {
+        const genresList = genr.slice(0, 2);
+        genresList.push('Other');
 
-      genresList.push('Other');
+        formatedGenres = genresList.join(', ');
+      } else {
+        formatedGenres = genr.join(', ');
+      }
 
-      const formatedGenres = genresList.join(', ');
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">

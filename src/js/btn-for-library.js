@@ -90,29 +90,42 @@ function createMarkup(movies) {
     .map(movie => {
       const { poster_path, title, id, genres, release_date, vote_average } =
         movie;
+
       const vote = vote_average.toFixed(1);
-      const genresList = genres.map(item => item.name).slice(0, 2);
-      genresList.push('Other');
+      let formatedGenres;
+      let genresList;
+      genresList = genres.map(item => item.name).slice(0, 2);
+      if (genres.length > 2) {
+        genresList.push('Other');
+      }
+      formatedGenres = genresList.join(', ');
+      // const genresList = genres.map(item => item.name).slice(0, 2);
+      // genresList.push('Other');
 
-      const formatedGenres = genresList.join(', ');
+      // const formatedGenres = genresList.join(', ');
       const releaseYear = release_date.slice(0, 4);
-
+      let formatedPosterPath = '';
+      if (poster_path === null) {
+        formatedPosterPath = 'uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
+      } else {
+        formatedPosterPath = poster_path;
+      }
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">
        <picture>
                     <source srcset="
-                    http://image.tmdb.org/t/p/w780/${poster_path} 1x,
-                   http://image.tmdb.org/t/p/original/${poster_path} 2x" media="(min-width: 1280px)" type="image/jpeg" />
+                    http://image.tmdb.org/t/p/w780/${formatedPosterPath} 1x,
+                   http://image.tmdb.org/t/p/original/${formatedPosterPath} 2x" media="(min-width: 1280px)" type="image/jpeg" />
                     <source srcset="
-                    http://image.tmdb.org/t/p/w342/${poster_path} 1x,
-                    http://image.tmdb.org/t/p/w500/${poster_path} 2x" media="(min-width: 768px)" type="image/jpeg" />
+                    http://image.tmdb.org/t/p/w342/${formatedPosterPath} 1x,
+                    http://image.tmdb.org/t/p/w500/${formatedPosterPath} 2x" media="(min-width: 768px)" type="image/jpeg" />
                     <source srcset="
-                    http://image.tmdb.org/t/p/w185/${poster_path} 1x,
-                    http://image.tmdb.org/t/p/w342/${poster_path} 2x" media="(max-width: 480px)" type="image/jpeg" />
+                    http://image.tmdb.org/t/p/w185/${formatedPosterPath} 1x,
+                    http://image.tmdb.org/t/p/w342/${formatedPosterPath} 2x" media="(max-width: 480px)" type="image/jpeg" />
          <img id="${id}
           loading="lazy"
-          src="http://image.tmdb.org/t/p/w342/${poster_path}"
+          src="http://image.tmdb.org/t/p/w342/${formatedPosterPath}"
           alt="${title}"
           class="card-set__img "/>
       </picture>
