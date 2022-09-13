@@ -172,9 +172,7 @@ async function createMarkupKey(data) {
      
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}"> ${genresName.join(
-        ', '
-      )} &nbsp| ${year}</span>
+      <span class="card-set__genre" id="${id}"> ${formatedGenres} &nbsp| ${year}</span>
         </div>
       </a>
       </li>
