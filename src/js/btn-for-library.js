@@ -90,8 +90,10 @@ function createMarkup(movies) {
       const { poster_path, title, id, genres, release_date, vote_average } =
         movie;
       const vote = vote_average.toFixed(1);
-      const genresList = genres.map(item => item.name).join(', ');
+      const genresList = genres.map(item => item.name).slice(0, 2);
+      genresList.push('Other');
 
+      const formatedGenres = genresList.join(', ');
       const releaseYear = release_date.slice(0, 4);
 
       return `
@@ -108,7 +110,7 @@ function createMarkup(movies) {
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
       <span class="card-set__genre flex" id="${id}">
-          ${genresList} &nbsp| ${releaseYear}
+          ${formatedGenres} &nbsp| ${releaseYear}
           <span class="vote"> ${vote}</span>
       </span>
       
