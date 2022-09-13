@@ -23,7 +23,7 @@ async function onSearchSubmit(evt) {
     evt.preventDefault();
     evt.stopPropagation();
     refs.paginationCont.classList.remove('is-hidden');
-    refs.gallery.innerHTML = '';
+    // refs.gallery.innerHTML = '';
     keyMovieFetch.resetPage();
     console.log(evt.currentTarget.elements.searchQuery.value);
     keyMovieFetch.value = evt.currentTarget.elements.searchQuery.value;
@@ -35,7 +35,7 @@ async function onSearchSubmit(evt) {
       refs.searchMessage.innerHTML =
         'I can`t find an empty request. Please input something.';
       // console.log('I can`t find an empty request. Please input something.');
-      refs.gallery.innerHTML = '';
+      // refs.gallery.innerHTML = '';
       return;
     }
     if (keyMovieFetch.value !== '') {
@@ -44,10 +44,11 @@ async function onSearchSubmit(evt) {
       total_films = fetch.total_results;
       console.log(total_films);
       if (total_films) {
+        refs.gallery.innerHTML = '';
         pagination.reset(total_films);
         await createMarkupKey(fetch);
         SEARCH_ACTIVE = true;
-        console.log('SEARCH_ACTIVE', SEARCH_ACTIVE);
+        // console.log('SEARCH_ACTIVE', SEARCH_ACTIVE);
       }
 
       // console.log(fetch);
@@ -57,7 +58,7 @@ async function onSearchSubmit(evt) {
       refs.paginationCont.classList.add('is-hidden');
       refs.searchMessage.innerHTML =
         'Search result not successful. Enter the correct movie name and try again.';
-      refs.gallery.innerHTML = '';
+      // refs.gallery.innerHTML = '';
       return;
     }
     // refs.loadMoreBtn.classList.remove('is-hidden');
