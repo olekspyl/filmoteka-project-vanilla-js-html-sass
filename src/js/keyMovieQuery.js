@@ -91,7 +91,7 @@ async function renderGalleryKey() {
   // refs.gallery.innerHTML = '';
   if (keyMovieFetch.value !== '') {
     const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
-    console.log('fetch in render', fetch);
+    // console.log('fetch in render', fetch);
     const { results } = fetch;
 
     const CheckImgUrl = filmCheckImgUrl(results);
@@ -122,7 +122,7 @@ async function createMarkupKey(data) {
   refs.searchMessage.classList.add('is-hidden');
 
   //   const films = data.results;
-  console.log();
+
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       let year;
@@ -186,8 +186,8 @@ pagination.on('afterMove', event => {
   const currentPage = event.page;
   if (SEARCH_ACTIVE) {
     const currentPage = event.page;
-    console.log(currentPage);
-    console.log(keyMovieFetch.page);
+    // console.log(currentPage);
+    // console.log(keyMovieFetch.page);
     keyMovieFetch.page = currentPage;
     renderGalleryKey();
     topFunction();
