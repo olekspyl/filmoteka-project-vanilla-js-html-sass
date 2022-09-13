@@ -101,6 +101,7 @@ function matchGenres(genreIdArr, genresFool) {
       result.push(matchGenre.name);
     }
   });
+  console.log('result', result);
   return result;
 }
 
@@ -125,10 +126,15 @@ async function createMarkupKey(data) {
         year = '';
       }
 
-      const genresList = GENRES_FULL_INFO.map(item => item.name).slice(0, 2);
-      genresList.push('Other');
+      const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
+      // console.log('genr', genr);
 
-      const formatedGenres = genresList.join(', ');
+      // const genresList = genr.map(item => item.name).slice(0, 2);
+      // // debugger;
+      // console.log('genresList', genresList);
+      // genresList.push('Other');
+
+      // const formatedGenres = genresList.join(', ');
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">
@@ -151,7 +157,9 @@ async function createMarkupKey(data) {
      
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}"> ${formatedGenres} &nbsp| ${year}</span>
+      <span class="card-set__genre" id="${id}"> ${genr.join(
+        ', '
+      )} &nbsp| ${year}</span>
         </div>
       </a>
       </li>
