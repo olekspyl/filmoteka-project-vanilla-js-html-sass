@@ -1,3 +1,5 @@
+import { onGalleryClick } from './gallery-popular-films';
+
 let watchedMovies = [];
 let queueMovies = [];
 
@@ -74,18 +76,18 @@ function onBtnWatchedClick() {
 function renderMarkup(savedMovies) {
   console.log(savedMovies);
   libraryWrap.innerHTML = createMarkup(savedMovies);
+  const galleryItems = document.querySelectorAll('.card-set__item');
+
+  galleryItems.forEach(card =>
+    card.removeEventListener('click', onGalleryClick)
+  );
+  galleryItems.forEach(card => card.addEventListener('click', onGalleryClick));
 }
 
 function createMarkup(movies) {
   return movies
     .map(movie => {
-      const {
-        poster_path,
-        title,
-        id,
-        genres,
-        release_date,
-      } = movie;
+      const { poster_path, title, id, genres, release_date } = movie;
 
       const genresList = genres.map(item => item.name).join(', ');
       const releaseYear = release_date.slice(0, 4);
@@ -111,6 +113,6 @@ function createMarkup(movies) {
       </a>
       </li>
       `;
-    }).join('');
+    })
+    .join('');
 }
-
