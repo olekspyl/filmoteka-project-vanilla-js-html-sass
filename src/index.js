@@ -7,3 +7,4 @@ import { pagination } from './js/pagination';
 import { keyMovieQuery } from './js/keyMovieQuery';
 import './js/backToTop';
 import './js/btn-in-modal';
+import { darkOn } from './js/darkOn';

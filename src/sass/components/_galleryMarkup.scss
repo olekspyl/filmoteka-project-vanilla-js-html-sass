@@ -97,3 +97,24 @@
 .genre {
   color: #ff6b08;
 }
+.vote {
+  width: 36px;
+  height: 16px;
+  background-color: var(--secondary-orange-color);
+  border-radius: 5px;
+  color: var(--white-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  padding: 2px 6px;
+  margin-left: 9px;
+  text-align: center;
+  @media screen and (min-width: 768px) {
+    padding: 2px 9px;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}

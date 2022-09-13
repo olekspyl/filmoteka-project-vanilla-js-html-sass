@@ -8,64 +8,63 @@ const modalWrap = document.querySelector('.film-card');
 modalWrap.addEventListener('click', onModalClick);
 
 function onModalClick(evt) {
-    if (evt.target.classList.contains('description-button__watched')) {
-        onBtnAddToWatchedClick(evt);
-    }
+  if (evt.target.classList.contains('description-button__watched')) {
+    onBtnAddToWatchedClick(evt);
+  }
 
-    if (evt.target.classList.contains('description-button__queue')) {
-        onBtnAddToQueueClick(evt);
-    }
+  if (evt.target.classList.contains('description-button__queue')) {
+    onBtnAddToQueueClick(evt);
+  }
 }
 
 async function onBtnAddToWatchedClick(evt) {
-    const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
-    const selectedMovie = await getMovieById(evt.target.dataset.id);
+  const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-    if (dataWatched === null || dataWatched === '[]') {
-        watchedMovies.push(selectedMovie);
-        localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+  if (dataWatched === null || dataWatched === '[]') {
+    watchedMovies.push(selectedMovie);
+    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 
-        Notiflix.Notify.success('This movie added to Watched.');
+    Notiflix.Notify.success('This movie added to Watched.');
+  } else {
+    watchedMovies = dataWatched;
+    for (let i = 0; i < watchedMovies.length; i += 1) {
+      if (watchedMovies[i].id === selectedMovie.id) {
+        return Notiflix.Notify.failure(
+          'This movie has already been added to Watched.'
+        );
+      }
     }
-    else {
-        watchedMovies = dataWatched;
-        for (let i = 0; i < watchedMovies.length; i += 1) {
+    watchedMovies.push(selectedMovie);
+    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 
-            if (watchedMovies[i].id === selectedMovie.id) {
-                return Notiflix.Notify.failure('This movie has already been added to Watched.');
-            }
-        }
-        watchedMovies.push(selectedMovie);
-        localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-
-        Notiflix.Notify.success('This movie added to Watched.');
-    }
+    Notiflix.Notify.success('This movie added to Watched.');
+  }
 }
 
 async function onBtnAddToQueueClick(evt) {
-    const dataQueue = JSON.parse(localStorage.getItem('queueMovies'));
-    const selectedMovie = await getMovieById(evt.target.dataset.id);
+  const dataQueue = JSON.parse(localStorage.getItem('queueMovies'));
 
-    if (dataQueue === null || dataQueue === '[]') {
-        queueMovies.push(selectedMovie);
-        localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-        
-        Notiflix.Notify.success('This movie added to Queue.');
+  if (dataQueue === null || dataQueue === '[]') {
+    queueMovies.push(selectedMovie);
+    localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
+
+    Notiflix.Notify.success('This movie added to Queue.');
+  } else {
+    queueMovies = dataQueue;
+    for (let i = 0; i < queueMovies.length; i += 1) {
+      if (queueMovies[i].id === selectedMovie.id) {
+        return Notiflix.Notify.failure(
+          'This movie has already been added to Queue.'
+        );
+      }
     }
-    else {
-        queueMovies = dataQueue;
-        for (let i = 0; i < queueMovies.length; i += 1) {
 
-            if (queueMovies[i].id === selectedMovie.id) {
-                
-                return Notiflix.Notify.failure('This movie has already been added to Queue.');
-            }
-        }
+    queueMovies.push(selectedMovie);
+    localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
 
-        queueMovies.push(selectedMovie);
-        localStorage.setItem('queueMovies', JSON.stringify(watchedMovies));
-
-        Notiflix.Notify.success('This movie added to Queue.');
-    }
+    Notiflix.Notify.success('This movie added to Queue.');
+  }
 }

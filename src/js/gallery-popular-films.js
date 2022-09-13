@@ -37,7 +37,7 @@ async function fetchData() {
     requireData.getGenre(),
     requireData.getFilms(),
   ]);
-  console.log('data', data);
+
   GENRES_FULL_INFO = data[1].genres;
   return data;
 }
