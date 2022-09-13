@@ -82,6 +82,7 @@ async function modifyData() {
         break;
       }
     }
+
     return genresNames.join(', ');
   }
 
