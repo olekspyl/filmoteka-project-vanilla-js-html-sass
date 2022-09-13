@@ -98,7 +98,6 @@ function renderGallery(popularFilms) {
   // const popularFilms = await modifyData();
   const markup = createMarkup(popularFilms);
   addToHTML(markup);
-  // console.log('in renderGallery');
 }
 
 if (refs.page.classList.contains('header-list__link--current')) {
@@ -109,7 +108,6 @@ if (refs.page.classList.contains('header-list__link--current')) {
 export async function onPaginLoadMore(currentPage) {
   requireData.page = currentPage;
   const filmsData = await fetchFilms();
-  // console.log('films Data', filmsData);
   const configAndGenreData = config;
   const dataForMurkup = preperDataForMurkup({
     configAndGenreData,
