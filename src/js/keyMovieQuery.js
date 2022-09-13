@@ -112,13 +112,23 @@ async function createMarkupKey(data) {
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">
-      <img id="${id}
+      <picture>
+                    <source srcset="
+                    http://image.tmdb.org/t/p/w780/${poster_path} 1x,
+                   http://image.tmdb.org/t/p/original/${poster_path} 2x" media="(min-width: 1280px)" type="image/jpeg" />
+                    <source srcset="
+                    http://image.tmdb.org/t/p/w342/${poster_path} 1x,
+                    http://image.tmdb.org/t/p/w500/${poster_path} 2x" media="(min-width: 768px)" type="image/jpeg" />
+                    <source srcset="
+                    http://image.tmdb.org/t/p/w185/${poster_path} 1x,
+                    http://image.tmdb.org/t/p/w342/${poster_path} 2x" media="(max-width: 480px)" type="image/jpeg" />
+         <img id="${id}
           loading="lazy"
           src="http://image.tmdb.org/t/p/w342/${poster_path}"
           alt="${title}"
-          class="card-set__img "
-
-      />
+          class="card-set__img "/>
+      </picture>
+     
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
       <span class="card-set__genre" id="${id}"> ${genresName.join(
