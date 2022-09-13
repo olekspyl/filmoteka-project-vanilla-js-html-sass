@@ -42,7 +42,7 @@ async function onSearchSubmit(evt) {
       const fetch = await keyMovieFetch.fetchMovie(keyMovieFetch.value);
       console.log('fetch', fetch);
       total_films = fetch.total_results;
-      console.log(total_films);
+      // console.log(total_films);
       if (total_films) {
         refs.gallery.innerHTML = '';
         pagination.reset(total_films);
@@ -112,7 +112,18 @@ async function createMarkupKey(data) {
   console.log();
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
-      const year = release_date.slice(0, 4);
+      let year;
+      // const length_release_date = 'sss'.length;
+      // console.log('date.length', release_date);
+      if (release_date !== undefined) {
+        if (release_date.length > 4) {
+          year = release_date.slice(0, 4);
+        } else {
+          year = '';
+        }
+      } else {
+        year = '';
+      }
       const genresName = matchGenres(genre_ids, GENRES_FULL_INFO);
       return `
       <li class="card-set__item" id="${id}">
