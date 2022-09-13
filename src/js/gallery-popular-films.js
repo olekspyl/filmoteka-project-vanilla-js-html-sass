@@ -12,9 +12,7 @@ import {
 const requireData = new AxiosRequestService();
 
 let config = {};
-let total_films;
 export let GENRES_FULL_INFO;
-export let SEARCH_ACTIVE = 0;
 
 const refs = {
   page: document.querySelector('a[data-page="home"]'),
@@ -56,7 +54,7 @@ async function fetchDataConfigAndGenre() {
 
   const { genres } = data[1];
 
-  console.log('data', data);
+  // console.log('data', data);
   GENRES_FULL_INFO = genres;
   return { base_url, poster_sizes, genres };
 }
@@ -66,9 +64,7 @@ async function loadPage() {
   config = configAndGenreData;
   // console.log('configAndGenre', configAndGenreData);
   const filmsData = await fetchFilms();
-
   pagination.reset(filmsData.total_results);
-
   console.log('films Data', filmsData);
   const dataForMurkup = preperDataForMurkup({
     configAndGenreData,
