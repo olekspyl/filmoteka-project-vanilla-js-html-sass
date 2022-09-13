@@ -127,11 +127,8 @@ async function createMarkupKey(data) {
       }
 
       const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
-      console.log('genr', genr);
 
       const genresList = genr.slice(0, 2);
-      // debugger;
-      console.log('genresList', genresList);
 
       genresList.push('Other');
 
