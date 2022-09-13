@@ -110,7 +110,7 @@ async function createMarkupKey(data) {
   refs.searchMessage.classList.add('is-hidden');
 
   //   const films = data.results;
-  console.log();
+
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       let year;
@@ -127,14 +127,15 @@ async function createMarkupKey(data) {
       }
 
       const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
-      // console.log('genr', genr);
+      console.log('genr', genr);
 
-      // const genresList = genr.map(item => item.name).slice(0, 2);
-      // // debugger;
-      // console.log('genresList', genresList);
-      // genresList.push('Other');
+      const genresList = genr.slice(0, 2);
+      // debugger;
+      console.log('genresList', genresList);
 
-      // const formatedGenres = genresList.join(', ');
+      genresList.push('Other');
+
+      const formatedGenres = genresList.join(', ');
       return `
       <li class="card-set__item" id="${id}">
       <a href='#' id='${id}' class="card-link">
@@ -157,9 +158,7 @@ async function createMarkupKey(data) {
      
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}"> ${genr.join(
-        ', '
-      )} &nbsp| ${year}</span>
+      <span class="card-set__genre" id="${id}"> ${formatedGenres} &nbsp| ${year}</span>
         </div>
       </a>
       </li>
