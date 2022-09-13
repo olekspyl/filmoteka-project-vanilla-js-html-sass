@@ -22,6 +22,7 @@ function onLibraryLinkClick() {
 
   if (noWatched && noQueue) {
     libraryWrap.classList.remove('gallery');
+    watchedBtn.classList.remove('library--btn--active');
     const emptyLibrary = `<div class="empty-library"> 
     <p class="empty-library__title">YOUR LIBRARY IS EMPTY!</p>
     </div>`;
