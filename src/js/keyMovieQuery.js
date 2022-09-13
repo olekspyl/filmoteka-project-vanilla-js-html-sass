@@ -1,6 +1,6 @@
 import KeyMovieFetch from './keyMovieFetch';
 import { addToHTML } from './gallery-popular-films';
-import { GENRES_FULL_INFO } from './gallery-popular-films';
+import { GENRES_FULL_INFO, onPaginLoadMore } from './gallery-popular-films';
 import { pagination } from './pagination';
 
 const refs = {
@@ -11,7 +11,7 @@ const refs = {
   paginationCont: document.getElementById('tui-pagination-container'),
   // loadMoreBtn: document.querySelector('.load-more'),
 };
-
+let SEARCH_ACTIVE = false;
 let total_films;
 const keyMovieFetch = new KeyMovieFetch();
 
@@ -43,9 +43,13 @@ async function onSearchSubmit(evt) {
       console.log('fetch', fetch);
       total_films = fetch.total_results;
       console.log(total_films);
-      pagination.reset(total_films);
+      if (total_films) {
+        pagination.reset(total_films);
+        await createMarkupKey(fetch);
+        SEARCH_ACTIVE = true;
+        console.log('SEARCH_ACTIVE', SEARCH_ACTIVE);
+      }
 
-      await createMarkupKey(fetch);
       // console.log(fetch);
     }
     if (total_films === 0) {
@@ -145,8 +149,13 @@ async function createMarkupKey(data) {
 
 pagination.on('afterMove', event => {
   const currentPage = event.page;
-  console.log(currentPage);
-  console.log(keyMovieFetch.page);
-  keyMovieFetch.page = currentPage;
-  renderGalleryKey();
+  if (SEARCH_ACTIVE) {
+    const currentPage = event.page;
+    console.log(currentPage);
+    console.log(keyMovieFetch.page);
+    keyMovieFetch.page = currentPage;
+    renderGalleryKey();
+  } else {
+    onPaginLoadMore(currentPage);
+  }
 });
