@@ -77,17 +77,17 @@ export function filmAddUrl(dataForModify) {
 
 export function filmCheckImgUrl(dataForModify) {
   //   const { results } = dataForModify;
-  //   console.log(' results', results);
+  //   console.log('dataForModify', dataForModify);
   const filmCheckImgUrl = dataForModify.map(result => {
     const { poster_path } = result;
     if (poster_path === null || poster_path === undefined) {
-      result.base_url = 'images/';
-      result.poster_path = 'no-poster.jpg';
+      //   result.base_url = 'images/';
+      result.poster_path = 'uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
       return result;
     }
     return result;
   });
 
-  console.log('filmCheckImgUrl', filmCheckImgUrl);
+  //   console.log('filmCheckImgUrl', filmCheckImgUrl);
   return filmCheckImgUrl;
 }
