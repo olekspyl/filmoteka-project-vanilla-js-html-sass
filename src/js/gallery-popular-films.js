@@ -65,7 +65,7 @@ async function loadPage() {
   // console.log('configAndGenre', configAndGenreData);
   const filmsData = await fetchFilms();
   pagination.reset(filmsData.total_results);
-  console.log('films Data', filmsData);
+  // console.log('films Data', filmsData);
   const dataForMurkup = preperDataForMurkup({
     configAndGenreData,
     filmsData,

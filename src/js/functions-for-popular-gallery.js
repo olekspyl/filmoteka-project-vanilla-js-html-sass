@@ -5,7 +5,17 @@ export function filmAddYearRelease(dataForModify) {
 
   const filmAddYearRelease = results.map(result => {
     const { release_date } = result;
-    const releaseYear = release_date.slice(0, 4);
+    let releaseYear;
+    if (release_date !== undefined) {
+      if (release_date.length > 4) {
+        releaseYear = release_date.slice(0, 4);
+      } else {
+        releaseYear = '';
+      }
+    } else {
+      releaseYear = '';
+    }
+    // releaseYear = release_date.slice(0, 4);
     return { releaseYear, ...result };
   });
   //   console.log('filmAddYearRelease', filmAddYearRelease);
