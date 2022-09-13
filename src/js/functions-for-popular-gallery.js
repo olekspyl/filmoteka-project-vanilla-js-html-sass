@@ -74,3 +74,20 @@ export function filmAddUrl(dataForModify) {
   //   console.log('filmAddUrl', filmAddUrl);
   return filmAddUrl;
 }
+
+export function filmCheckImgUrl(dataForModify) {
+  //   const { results } = dataForModify;
+  //   console.log(' results', results);
+  const filmCheckImgUrl = dataForModify.map(result => {
+    const { poster_path } = result;
+    if (poster_path === null || poster_path === undefined) {
+      result.base_url = 'images/';
+      result.poster_path = 'no-poster.jpg';
+      return result;
+    }
+    return result;
+  });
+
+  console.log('filmCheckImgUrl', filmCheckImgUrl);
+  return filmCheckImgUrl;
+}
