@@ -244,3 +244,43 @@
     border: none;
   }
 }
+
+// header shadow anima
+.library-header--logo__name {
+  position: relative;
+}
+.library-header--logo__name::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background: transparent;
+  height: 50%;
+  width: 100%;
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(8px);
+  transition: 1s ease;
+}
+.library-header--logo__name:hover::before {
+  background: var(--white-color);
+  top: 30px;
+}
+.library-header--list__link {
+  position: relative;
+}
+.library-header--list__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background: transparent;
+  height: 50%;
+  width: 100%;
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(8px);
+  transition: 1s ease;
+}
+.library-header--list__link:hover::before {
+  background: var(--white-color);
+  top: 20px;
+}
