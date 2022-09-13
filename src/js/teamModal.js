@@ -48,5 +48,3 @@ function onEscKeyPress(evt) {
     modalTeam.removeEventListener('click', onBackdropClick);
   }
 }
-
-console.log(5);
