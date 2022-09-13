@@ -1,3 +1,5 @@
+import { onGalleryClick } from './gallery-popular-films';
+
 let watchedMovies = [];
 let queueMovies = [];
 
@@ -74,20 +76,24 @@ function onBtnWatchedClick() {
 function renderMarkup(savedMovies) {
   console.log(savedMovies);
   libraryWrap.innerHTML = createMarkup(savedMovies);
+  const galleryItems = document.querySelectorAll('.card-set__item');
+
+  galleryItems.forEach(card =>
+    card.removeEventListener('click', onGalleryClick)
+  );
+  galleryItems.forEach(card => card.addEventListener('click', onGalleryClick));
 }
 
 function createMarkup(movies) {
   return movies
     .map(movie => {
-      const {
-        poster_path,
-        title,
-        id,
-        genres,
-        release_date,
-      } = movie;
+      const { poster_path, title, id, genres, release_date, vote_average } =
+        movie;
+      const vote = vote_average.toFixed(1);
+      const genresList = genres.map(item => item.name).slice(0, 2);
+      genresList.push('Other');
 
-      const genresList = genres.map(item => item.name).join(', ');
+      const formatedGenres = genresList.join(', ');
       const releaseYear = release_date.slice(0, 4);
 
       return `
@@ -103,14 +109,15 @@ function createMarkup(movies) {
     
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
-      <span class="card-set__genre" id="${id}">
-          ${genresList} &nbsp| ${releaseYear}
+      <span class="card-set__genre flex" id="${id}">
+          ${formatedGenres} &nbsp| ${releaseYear}
+          <span class="vote"> ${vote}</span>
       </span>
       
       </div>
       </a>
       </li>
       `;
-    }).join('');
+    })
+    .join('');
 }
-
