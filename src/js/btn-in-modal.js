@@ -3,8 +3,15 @@ import Notiflix from 'notiflix';
 import { renderMarkup } from './btn-for-library';
 let watchedMovies = [];
 let queueMovies = [];
-
+const libraryWrap = document.querySelector('.library-list');
 const modalWrap = document.querySelector('.film-card');
+const pageLibraly = document.querySelector('a[data-page="library"]');
+console.log('new');
+
+const libralyWatched = document.querySelector('.library--btn__watched');
+const libralyQueue = document.querySelector('.library--btn__queue');
+// console.log('libralyWatched', libralyWatched);
+// console.log('libralyQueue', libralyQueue);
 modalWrap.addEventListener('click', onModalClick);
 
 function onModalClick(evt) {
@@ -15,6 +22,14 @@ function onModalClick(evt) {
   if (evt.target.classList.contains('description-button__queue')) {
     onBtnAddToQueueClick(evt);
   }
+
+  if (evt.target.classList.contains('remove-button__watched')) {
+    onBtnRemoveFromWatchedClick(evt);
+  }
+
+  if (evt.target.classList.contains('remove-button__queue')) {
+    onBtnRemoveFromQueueClick(evt);
+  }
 }
 
 async function onBtnAddToWatchedClick(evt) {
@@ -24,6 +39,10 @@ async function onBtnAddToWatchedClick(evt) {
   if (dataWatched === null || !dataWatched.length) {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+
+    evt.target.textContent = 'remove from watched';
+    evt.target.classList.remove('description-button__watched');
+    evt.target.classList.add('remove-button__watched');
 
     Notiflix.Notify.success('This movie added to Watched.');
   } else {
@@ -59,6 +78,10 @@ async function onBtnAddToQueueClick(evt) {
   if (dataQueue === null || !dataQueue.length) {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
+
+    evt.target.textContent = 'remove from queue';
+    evt.target.classList.remove('description-button__queue');
+    evt.target.classList.add('remove-button__queue');
 
     Notiflix.Notify.success('This movie added to Queue.');
   } else {
