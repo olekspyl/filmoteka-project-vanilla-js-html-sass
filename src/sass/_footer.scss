@@ -10,6 +10,7 @@
   display: flex;
   text-align: center;
   justify-content: center;
+  margin-top: auto;
 
   @media screen and (min-width: $tablet) {
     display: block;
