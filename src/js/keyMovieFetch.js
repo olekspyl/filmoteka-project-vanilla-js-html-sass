@@ -14,7 +14,7 @@ export default class KeyMovieFetch {
 
   async fetchMovie() {
     try {
-      const url = 'https://api.themoviedb.org/3/search/movie/';
+      const url = 'https://api.themoviedb.org/3/search/movie';
       //   this.loadMore.classList.add('is-hidden');
       const response = await axios.get(url, {
         params: {
