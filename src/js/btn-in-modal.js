@@ -5,6 +5,7 @@ let watchedMovies = [];
 let queueMovies = [];
 
 const modalWrap = document.querySelector('.film-card');
+// const libraryWrap = document.querySelector('.library-list');
 modalWrap.addEventListener('click', onModalClick);
 
 function onModalClick(evt) {
@@ -14,6 +15,16 @@ function onModalClick(evt) {
 
   if (evt.target.classList.contains('description-button__queue')) {
     onBtnAddToQueueClick(evt);
+  }
+
+  if (evt.target.classList.contains('remove-button__watched')) {
+    console.log(evt.target);
+    onBtnRemoveFromWatchedClick(evt);
+  }
+
+  if (evt.target.classList.contains('remove-button__queue')) {
+    console.log(evt.target);
+    onBtnRemoveFromQueueClick(evt);
   }
 }
 
@@ -66,5 +77,33 @@ async function onBtnAddToQueueClick(evt) {
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
 
     Notiflix.Notify.success('This movie added to Queue.');
+  }
+}
+
+async function onBtnRemoveFromWatchedClick(evt) {
+  const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
+
+  for (let i = 0; i < dataWatched.length; i += 1) {
+    if (dataWatched[i].id === selectedMovie.id) {
+      dataWatched.splice(i, 1);
+      localStorage.setItem('watchedMovies', JSON.stringify(dataWatched));
+
+      Notiflix.Notify.success('This movie has been removed from Watched.');
+    }
+  }
+}
+
+async function onBtnRemoveFromQueueClick(evt) {
+  const dataQueue = JSON.parse(localStorage.getItem('queueMovies'));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
+
+  for (let i = 0; i < dataQueue.length; i += 1) {
+    if (dataQueue[i].id === selectedMovie.id) {
+      dataQueue.splice(i, 1);
+      localStorage.setItem('queueMovies', JSON.stringify(dataQueue));
+
+      Notiflix.Notify.success('This movie has been removed from Queue.');
+    }
   }
 }
