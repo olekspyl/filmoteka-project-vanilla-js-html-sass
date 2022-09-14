@@ -7,24 +7,28 @@ const libraryWrap = document.querySelector('.library-list');
 const watchedBtn = document.querySelector('.library--btn__watched');
 const queueBtn = document.querySelector('.library--btn__queue');
 
-watchedBtn.addEventListener('click', onBtnWatchedClick);
-queueBtn.addEventListener('click', onBtnQueueClick);
-
-onLibraryLinkClick();
+if (watchedBtn && queueBtn) {
+  watchedBtn.addEventListener('click', onBtnWatchedClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
+}
+if (watchedBtn && queueBtn && libraryWrap) {
+  onLibraryLinkClick();
+}
 
 function onLibraryLinkClick() {
   libraryWrap.innerHTML = ' ';
 
   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-  const noWatched = watchedMovies === null || watchedMovies === '[]';
-  const noQueue = queueMovies === null || queueMovies === '[]';
+  const noWatched = watchedMovies === null || !watchedMovies.length;
+  const noQueue = queueMovies === null || !queueMovies.length;
 
   if (noWatched && noQueue) {
     libraryWrap.classList.remove('gallery');
     watchedBtn.classList.remove('library--btn--active');
     const emptyLibrary = `<div class="empty-library"> 
     <p class="empty-library__title">YOUR LIBRARY IS EMPTY!</p>
+    <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
     </div>`;
     libraryWrap.innerHTML = emptyLibrary;
   }
@@ -44,11 +48,12 @@ function onBtnQueueClick() {
   queueBtn.classList.add('library--btn--active');
 
   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-  const noQueue = queueMovies === null || queueMovies === '[]';
+  const noQueue = queueMovies === null || !queueMovies.length;
 
   if (noQueue) {
-    const emptyQueue = `<div class="container empty-library"> 
+    const emptyQueue = `<div class="empty-library"> 
         <p class="empty-library__title">NO MOVIES TO WATCH IN QUEUE!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
         </div>`;
     libraryWrap.innerHTML = emptyQueue;
   } else {
@@ -62,11 +67,12 @@ function onBtnWatchedClick() {
   watchedBtn.classList.add('library--btn--active');
 
   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
-  const noWatched = watchedMovies === null || watchedMovies === '[]';
+  const noWatched = watchedMovies === null || !watchedMovies.length;
 
   if (noWatched) {
-    const emptyWatched = `<div class="container empty-library">
+    const emptyWatched = `<div class="empty-library">
         <p class="empty-library__title">NO MOVIES IN WATCHED!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
         </div>`;
     libraryWrap.innerHTML = emptyWatched;
   } else {
@@ -81,9 +87,7 @@ export function renderMarkup(savedMovies) {
   galleryItems.forEach(card =>
     card.removeEventListener('click', onGalleryClick)
   );
-  galleryItems.forEach(card =>
-    card.addEventListener('click', onGalleryClick)
-  );
+  galleryItems.forEach(card => card.addEventListener('click', onGalleryClick));
 }
 
 export function createMarkup(movies) {

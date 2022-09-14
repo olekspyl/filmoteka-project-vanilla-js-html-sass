@@ -1,6 +1,6 @@
 import { getMovieById } from './fetch-movie';
 import Notiflix from 'notiflix';
-import { renderMarkup, renderMarkup } from './btn-for-library';
+import { renderMarkup } from './btn-for-library';
 let watchedMovies = [];
 let queueMovies = [];
 const libraryWrap = document.querySelector('.library-list');
@@ -35,7 +35,7 @@ async function onBtnAddToWatchedClick(evt) {
   const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
   const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-  if (dataWatched === null || dataWatched === '[]') {
+  if (dataWatched === null || !dataWatched.length) {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 
@@ -59,7 +59,7 @@ async function onBtnAddToWatchedClick(evt) {
       pageLibraly.classList.contains('library-header--list__link--active') &&
       libralyWatched.classList.contains('library--btn--active')
     ) {
-      onRemoveWatchedUpdate();
+      onRemoveWatchedUpdate(evt);
     }
     evt.target.textContent = 'remove from watched';
     evt.target.classList.remove('description-button__watched');
@@ -74,7 +74,7 @@ async function onBtnAddToQueueClick(evt) {
 
   const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-  if (dataQueue === null || dataQueue === '[]') {
+  if (dataQueue === null || !dataQueue.length) {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
 
@@ -99,7 +99,7 @@ async function onBtnAddToQueueClick(evt) {
       pageLibraly.classList.contains('library-header--list__link--active') &&
       libralyQueue.classList.contains('library--btn--active')
     ) {
-      onRemoveQueueUpdate();
+      onRemoveQueueUpdate(evt);
     }
     evt.target.textContent = 'remove from queue';
     evt.target.classList.remove('description-button__queue');
@@ -121,7 +121,7 @@ async function onBtnRemoveFromWatchedClick(evt) {
         pageLibraly.classList.contains('library-header--list__link--active') &&
         libralyWatched.classList.contains('library--btn--active')
       ) {
-        onRemoveWatchedUpdate();
+        onRemoveWatchedUpdate(evt);
       }
 
       evt.target.textContent = 'add to watched';
@@ -145,40 +145,51 @@ async function onBtnRemoveFromQueueClick(evt) {
         pageLibraly.classList.contains('library-header--list__link--active') &&
         libralyQueue.classList.contains('library--btn--active')
       ) {
-        onRemoveQueueUpdate();
+        onRemoveQueueUpdate(evt);
       }
+      evt.target.textContent = 'add to queue';
+      evt.target.classList.remove('remove-button__queue');
+      evt.target.classList.add('description-button__queue');
+
       Notiflix.Notify.success('This movie has been removed from Queue.');
     }
   }
 }
 
-export function onRemoveWatchedUpdate() {
+export function onRemoveWatchedUpdate(evt) {
   libraryWrap.innerHTML = ' ';
   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
-  const noWatched = watchedMovies === null || watchedMovies === '[]';
+  const noWatched = watchedMovies === null || !watchedMovies.length;
 
-  evt.target.textContent = 'add to queue';
-  evt.target.classList.remove('remove-button__queue');
-  evt.target.classList.add('description-button__queue');
+  evt.target.textContent = 'add to watched';
+  evt.target.classList.remove('remove-button__watched');
+  evt.target.classList.add('description-button__watched');
 
   if (noWatched) {
-    const emptyWatched = `<div class="container empty-library">
+    const emptyWatched = `<div class="empty-library">
         <p class="empty-library__title">NO MOVIES IN WATCHED!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
         </div>`;
     libraryWrap.innerHTML = emptyWatched;
   } else {
     renderMarkup(watchedMovies);
   }
 }
-export function onRemoveQueueUpdate() {
+
+export function onRemoveQueueUpdate(evt) {
   libraryWrap.innerHTML = ' ';
 
   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-  const noQueue = queueMovies === null || queueMovies === '[]';
+  const noQueue = queueMovies === null || !queueMovies.length;
+
+  evt.target.textContent = 'add to queue';
+  evt.target.classList.remove('remove-button__queue');
+  evt.target.classList.add('description-button__queue');
 
   if (noQueue) {
-    const emptyQueue = `<div class="container empty-library">
+    const emptyQueue = `<div class="empty-library">
         <p class="empty-library__title">NO MOVIES TO WATCH IN QUEUE!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
         </div>`;
     libraryWrap.innerHTML = emptyQueue;
   } else {
