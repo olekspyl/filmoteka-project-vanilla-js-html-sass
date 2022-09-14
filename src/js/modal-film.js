@@ -56,7 +56,7 @@ function onEscapePress(evt) {
 
 export function renderModalOneFilm(modalFilm) {
   const {
-    poster_path,
+    poster_path: path,
     title,
     id,
     vote_average,
@@ -66,16 +66,35 @@ export function renderModalOneFilm(modalFilm) {
     genres,
     overview,
   } = modalFilm;
-
+  let poster_path;
+  if (path === null || path === undefined) {
+    console.log(null);
+    poster_path = '/uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
+    console.log('poster_path', poster_path);
+  } else {
+    poster_path = path;
+  }
   const genresList = genres.map(item => item.name).join(', ');
 
   const markupModalOneFilm = `<div class="film-card__wrapper">
         <div class="film-card__image-block">
+        <picture>
+                    <source srcset="
+                    https://image.tmdb.org/t/p/w780/${poster_path} 1x,
+                    https://image.tmdb.org/t/p/original/${poster_path} 2x" media="(min-width: 1280px)" type="image/jpeg" />
+                    <source srcset="
+                    https://image.tmdb.org/t/p/w342/${poster_path} 1x,
+                    https://image.tmdb.org/t/p/w500/${poster_path} 2x" media="(min-width: 768px)" type="image/jpeg" />
+                    <source srcset="
+                    https://image.tmdb.org/t/p/w185/${poster_path} 1x,
+                    https://image.tmdb.org/t/p/w342/${poster_path} 2x" media="(max-width: 480px)" type="image/jpeg" />
         <img
           class="film-card__image"
-          src="https://image.tmdb.org/t/p/original${poster_path}"
+          src="https://image.tmdb.org/t/p/w342${poster_path}"
           alt="film"
         />
+                </picture>
+        
       </div>
       <div class="film-card__description">
         <h1 class="film-card__description-title">${title}</h1>
