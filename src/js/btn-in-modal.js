@@ -1,6 +1,6 @@
 import { getMovieById } from './fetch-movie';
 import Notiflix from 'notiflix';
-
+import { renderMarkup } from './btn-for-library';
 let watchedMovies = [];
 let queueMovies = [];
 
@@ -21,7 +21,7 @@ async function onBtnAddToWatchedClick(evt) {
   const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
   const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-  if (dataWatched === null || dataWatched === '[]') {
+  if (dataWatched === null || !dataWatched.length) {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 
@@ -37,6 +37,15 @@ async function onBtnAddToWatchedClick(evt) {
     }
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+    if (
+      pageLibraly.classList.contains('library-header--list__link--active') &&
+      libralyWatched.classList.contains('library--btn--active')
+    ) {
+      onRemoveWatchedUpdate(evt);
+    }
+    evt.target.textContent = 'remove from watched';
+    evt.target.classList.remove('description-button__watched');
+    evt.target.classList.add('remove-button__watched');
 
     Notiflix.Notify.success('This movie added to Watched.');
   }
@@ -47,7 +56,7 @@ async function onBtnAddToQueueClick(evt) {
 
   const selectedMovie = await getMovieById(evt.target.dataset.id);
 
-  if (dataQueue === null || dataQueue === '[]') {
+  if (dataQueue === null || !dataQueue.length) {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
 
@@ -64,7 +73,104 @@ async function onBtnAddToQueueClick(evt) {
 
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
+    if (
+      pageLibraly.classList.contains('library-header--list__link--active') &&
+      libralyQueue.classList.contains('library--btn--active')
+    ) {
+      onRemoveQueueUpdate(evt);
+    }
+    evt.target.textContent = 'remove from queue';
+    evt.target.classList.remove('description-button__queue');
+    evt.target.classList.add('remove-button__queue');
 
     Notiflix.Notify.success('This movie added to Queue.');
+  }
+}
+
+async function onBtnRemoveFromWatchedClick(evt) {
+  const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
+
+  for (let i = 0; i < dataWatched.length; i += 1) {
+    if (dataWatched[i].id === selectedMovie.id) {
+      dataWatched.splice(i, 1);
+      localStorage.setItem('watchedMovies', JSON.stringify(dataWatched));
+      if (
+        pageLibraly.classList.contains('library-header--list__link--active') &&
+        libralyWatched.classList.contains('library--btn--active')
+      ) {
+        onRemoveWatchedUpdate(evt);
+      }
+
+      evt.target.textContent = 'add to watched';
+      evt.target.classList.remove('remove-button__watched');
+      evt.target.classList.add('description-button__watched');
+
+      Notiflix.Notify.success('This movie has been removed from Watched.');
+    }
+  }
+}
+
+async function onBtnRemoveFromQueueClick(evt) {
+  const dataQueue = JSON.parse(localStorage.getItem('queueMovies'));
+  const selectedMovie = await getMovieById(evt.target.dataset.id);
+
+  for (let i = 0; i < dataQueue.length; i += 1) {
+    if (dataQueue[i].id === selectedMovie.id) {
+      dataQueue.splice(i, 1);
+      localStorage.setItem('queueMovies', JSON.stringify(dataQueue));
+      if (
+        pageLibraly.classList.contains('library-header--list__link--active') &&
+        libralyQueue.classList.contains('library--btn--active')
+      ) {
+        onRemoveQueueUpdate(evt);
+      }
+      evt.target.textContent = 'add to queue';
+      evt.target.classList.remove('remove-button__queue');
+      evt.target.classList.add('description-button__queue');
+
+      Notiflix.Notify.success('This movie has been removed from Queue.');
+    }
+  }
+}
+
+export function onRemoveWatchedUpdate(evt) {
+  libraryWrap.innerHTML = ' ';
+  watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
+  const noWatched = watchedMovies === null || !watchedMovies.length;
+
+  evt.target.textContent = 'add to watched';
+  evt.target.classList.remove('remove-button__watched');
+  evt.target.classList.add('description-button__watched');
+
+  if (noWatched) {
+    const emptyWatched = `<div class="empty-library">
+        <p class="empty-library__title">NO MOVIES IN WATCHED!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
+        </div>`;
+    libraryWrap.innerHTML = emptyWatched;
+  } else {
+    renderMarkup(watchedMovies);
+  }
+}
+
+export function onRemoveQueueUpdate(evt) {
+  libraryWrap.innerHTML = ' ';
+
+  queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
+  const noQueue = queueMovies === null || !queueMovies.length;
+
+  evt.target.textContent = 'add to queue';
+  evt.target.classList.remove('remove-button__queue');
+  evt.target.classList.add('description-button__queue');
+
+  if (noQueue) {
+    const emptyQueue = `<div class="empty-library">
+        <p class="empty-library__title">NO MOVIES TO WATCH IN QUEUE!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" />
+        </div>`;
+    libraryWrap.innerHTML = emptyQueue;
+  } else {
+    renderMarkup(queueMovies);
   }
 }

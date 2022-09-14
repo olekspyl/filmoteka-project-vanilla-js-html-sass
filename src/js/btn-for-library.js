@@ -7,18 +7,21 @@ const libraryWrap = document.querySelector('.library-list');
 const watchedBtn = document.querySelector('.library--btn__watched');
 const queueBtn = document.querySelector('.library--btn__queue');
 
-watchedBtn.addEventListener('click', onBtnWatchedClick);
-queueBtn.addEventListener('click', onBtnQueueClick);
-
-onLibraryLinkClick();
+if (watchedBtn && queueBtn) {
+  watchedBtn.addEventListener('click', onBtnWatchedClick);
+  queueBtn.addEventListener('click', onBtnQueueClick);
+}
+if (watchedBtn && queueBtn && libraryWrap) {
+  onLibraryLinkClick();
+}
 
 function onLibraryLinkClick() {
   libraryWrap.innerHTML = ' ';
 
   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-  const noWatched = watchedMovies === null;
-  const noQueue = queueMovies === null;
+  const noWatched = watchedMovies === null || !watchedMovies.length;
+  const noQueue = queueMovies === null || !queueMovies.length;
 
   if (noWatched && noQueue) {
     libraryWrap.classList.remove('gallery');
@@ -45,7 +48,7 @@ function onBtnQueueClick() {
   queueBtn.classList.add('library--btn--active');
 
   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-  const noQueue = queueMovies === null || queueMovies === '[]';
+  const noQueue = queueMovies === null || !queueMovies.length;
 
   if (noQueue) {
     const emptyQueue = `<div class="empty-library"> 
@@ -64,7 +67,7 @@ function onBtnWatchedClick() {
   watchedBtn.classList.add('library--btn--active');
 
   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
-  const noWatched = watchedMovies === null || watchedMovies === '[]';
+  const noWatched = watchedMovies === null || !watchedMovies.length;
 
   if (noWatched) {
     const emptyWatched = `<div class="empty-library">
