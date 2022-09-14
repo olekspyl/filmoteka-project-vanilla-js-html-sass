@@ -1,6 +1,10 @@
 import KeyMovieFetch from './keyMovieFetch';
-import { addToHTML } from './gallery-popular-films';
-import { GENRES_FULL_INFO, onPaginLoadMore } from './gallery-popular-films';
+import { addToHTML, loadPage } from './gallery-popular-films';
+import {
+  GENRES_FULL_INFO,
+  onPaginLoadMore,
+  requireData,
+} from './gallery-popular-films';
 import { pagination } from './pagination';
 import { topFunction } from './backToTop';
 import { filmCheckImgUrl } from './functions-for-popular-gallery';
@@ -15,6 +19,7 @@ const refs = {
 };
 let SEARCH_ACTIVE = false;
 let total_films;
+let prevSearch = '';
 const keyMovieFetch = new KeyMovieFetch();
 
 refs.searchForm.addEventListener('submit', onSearchSubmit);
@@ -32,12 +37,17 @@ async function onSearchSubmit(evt) {
     if (keyMovieFetch.value === '') {
       //   refs.loadMoreBtn.classList.add('is-hidden');
       refs.searchMessage.classList.remove('is-hidden');
-      refs.paginationCont.classList.add('is-hidden');
-
+      // refs.paginationCont.classList.add('is-hidden');
+      SEARCH_ACTIVE = false;
+      requireData.page = 1;
+      loadPage();
       refs.searchMessage.innerHTML =
         'I can`t find an empty request. Please input something.';
       // console.log('I can`t find an empty request. Please input something.');
       // refs.gallery.innerHTML = '';
+      // setTimeout(() => {
+      //   refs.searchMessage.innerHTML = '';
+      // }, 1000);
       return;
     }
     if (keyMovieFetch.value !== '') {
@@ -45,9 +55,11 @@ async function onSearchSubmit(evt) {
       // console.log('fetch', fetch);
       total_films = fetch.total_results;
       // console.log(total_films);
-      if (total_films) {
+      if (fetch.total_results) {
+        prevSearch = keyMovieFetch.value;
+        keyMovieFetch.value;
         refs.gallery.innerHTML = '';
-        pagination.reset(total_films);
+        pagination.reset(fetch.total_results);
         const { results } = fetch;
 
         const CheckImgUrl = filmCheckImgUrl(results);
@@ -61,8 +73,9 @@ async function onSearchSubmit(evt) {
       // console.log(fetch);
     }
     if (total_films === 0) {
+      keyMovieFetch.value = prevSearch;
       refs.searchMessage.classList.remove('is-hidden');
-      refs.paginationCont.classList.add('is-hidden');
+      // refs.paginationCont.classList.add('is-hidden');
       refs.searchMessage.innerHTML =
         'Search result not successful. Enter the correct movie name and try again.';
       // refs.gallery.innerHTML = '';
