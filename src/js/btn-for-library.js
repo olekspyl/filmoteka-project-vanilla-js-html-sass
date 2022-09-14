@@ -74,7 +74,7 @@ function onBtnWatchedClick() {
   }
 }
 
-export function renderMarkup(savedMovies) {
+function renderMarkup(savedMovies) {
   libraryWrap.innerHTML = createMarkup(savedMovies);
   const galleryItems = document.querySelectorAll('.card-set__item');
 
