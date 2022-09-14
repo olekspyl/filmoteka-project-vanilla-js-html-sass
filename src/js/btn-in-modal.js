@@ -6,6 +6,7 @@ let queueMovies = [];
 const libraryWrap = document.querySelector('.library-list');
 const modalWrap = document.querySelector('.film-card');
 const pageLibraly = document.querySelector('a[data-page="library"]');
+console.log('new');
 
 const libralyWatched = document.querySelector('.library--btn__watched');
 const libralyQueue = document.querySelector('.library--btn__queue');
