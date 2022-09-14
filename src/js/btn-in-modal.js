@@ -5,7 +5,6 @@ let watchedMovies = [];
 let queueMovies = [];
 
 const modalWrap = document.querySelector('.film-card');
-// const libraryWrap = document.querySelector('.library-list');
 modalWrap.addEventListener('click', onModalClick);
 
 function onModalClick(evt) {
@@ -18,12 +17,10 @@ function onModalClick(evt) {
   }
 
   if (evt.target.classList.contains('remove-button__watched')) {
-    // console.log(evt.target);
     onBtnRemoveFromWatchedClick(evt);
   }
 
   if (evt.target.classList.contains('remove-button__queue')) {
-    // console.log(evt.target);
     onBtnRemoveFromQueueClick(evt);
   }
 }

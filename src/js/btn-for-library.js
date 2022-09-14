@@ -1,6 +1,4 @@
 import { onGalleryClick } from './gallery-popular-films';
-import { renderModalOneFilm, onOpenModal } from './modal-film';
-import { getMovieById } from './fetch-movie';
 
 let watchedMovies = [];
 let queueMovies = [];
@@ -88,36 +86,6 @@ function renderMarkup(savedMovies) {
   );
 }
 
-// async function onGalleryInLibraryClick(e) {
-//   e.preventDefault();
-//   e.stopPropagation();
-//   const filmInfo = await getMovieById(e.currentTarget.id);
-//   renderModalOneFilm(filmInfo);
-//   onOpenModal();
-
-//   const modalWatchedBtn = document.querySelector('.description-button__watched');
-//   const modalQueueBtn = document.querySelector('.description-button__queue');
-
-//   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
-//   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
-
-//   for (let i = 0; i < watchedMovies.length; i += 1) {
-//     if (watchedMovies[i].id === filmInfo.id) {
-//       modalWatchedBtn.textContent = 'remove from watched';
-//       modalWatchedBtn.classList.remove('description-button__watched');
-//       modalWatchedBtn.classList.add('remove-button__watched');
-//     }
-//   }
-
-//   for (let i = 0; i < queueMovies.length; i += 1) {
-//     if (queueMovies[i].id === filmInfo.id) {
-//       modalQueueBtn.textContent = 'remove from queue';
-//       modalQueueBtn.classList.remove('description-button__queue');
-//       modalQueueBtn.classList.add('remove-button__queue');
-//     }
-//   }
-// }
-
 export function createMarkup(movies) {
   return movies
     .map(movie => {
@@ -132,10 +100,6 @@ export function createMarkup(movies) {
         genresList.push('Other');
       }
       formatedGenres = genresList.join(', ');
-      // const genresList = genres.map(item => item.name).slice(0, 2);
-      // genresList.push('Other');
-
-      // const formatedGenres = genresList.join(', ');
       const releaseYear = release_date.slice(0, 4);
       let formatedPosterPath = '';
       if (poster_path === null) {
