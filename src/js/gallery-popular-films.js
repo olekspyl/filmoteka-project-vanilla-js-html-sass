@@ -111,6 +111,7 @@ export async function onPaginLoadMore(currentPage) {
     configAndGenreData,
     filmsData,
   });
+  // console.log('dataForMurkup', dataForMurkup);
   renderGallery(dataForMurkup);
 }
 
