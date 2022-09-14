@@ -80,7 +80,7 @@ function onBtnWatchedClick() {
   }
 }
 
-function renderMarkup(savedMovies) {
+export function renderMarkup(savedMovies) {
   libraryWrap.innerHTML = createMarkup(savedMovies);
   const galleryItems = document.querySelectorAll('.card-set__item');
 
