@@ -66,15 +66,27 @@ export function renderModalOneFilm(modalFilm) {
     genres,
     overview,
   } = modalFilm;
+
+  let modifiedOverwiew;
+  if (overview === '') {
+    modifiedOverwiew = 'There is no info';
+  } else {
+    modifiedOverwiew = overview;
+  }
   let poster_path;
   if (path === null || path === undefined) {
-    console.log(null);
+    // console.log(null);
     poster_path = '/uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
-    console.log('poster_path', poster_path);
+    // console.log('poster_path', poster_path);
   } else {
     poster_path = path;
   }
-  const genresList = genres.map(item => item.name).join(', ');
+  let genresList;
+  if (!genres.length) {
+    genresList = 'There is no info';
+  } else {
+    genresList = genres.map(item => item.name).join(', ');
+  }
 
   const markupModalOneFilm = `<div class="film-card__wrapper">
         <div class="film-card__image-block">
@@ -122,7 +134,7 @@ export function renderModalOneFilm(modalFilm) {
         </ul>
         <div class="film-card__description-about">
           <h2 class="description-about__title">About</h2>
-          <p class="description-about__text">${overview}</p>
+          <p class="description-about__text">${modifiedOverwiew}</p>
         </div>
         <div class="film-card__description-button">
           <button class="description-button description-button__watched" data-id="${id}">

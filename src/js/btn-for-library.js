@@ -96,16 +96,27 @@ function createMarkup(movies) {
       const vote = vote_average.toFixed(1);
       let formatedGenres;
       let genresList;
+
       genresList = genres.map(item => item.name).slice(0, 2);
-      if (genres.length > 2) {
+      if (!genres.length) {
+        genresList = ['There is no info'];
+      } else if (genres.length > 2) {
         genresList.push('Other');
       }
       formatedGenres = genresList.join(', ');
-      // const genresList = genres.map(item => item.name).slice(0, 2);
-      // genresList.push('Other');
 
-      // const formatedGenres = genresList.join(', ');
-      const releaseYear = release_date.slice(0, 4);
+      let year;
+
+      if (release_date !== undefined) {
+        if (release_date.length > 4) {
+          year = release_date.slice(0, 4);
+        } else {
+          year = 'There is no info';
+        }
+      } else {
+        year = 'There is no info';
+      }
+
       let formatedPosterPath = '';
       if (poster_path === null) {
         formatedPosterPath = 'uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
@@ -136,7 +147,7 @@ function createMarkup(movies) {
       <h3 class="card-set__title">${title}</h3>
       <div class="card-set__description" id="${id}">
       <span class="card-set__genre flex" id="${id}">
-          ${formatedGenres} &nbsp| ${releaseYear}
+          ${formatedGenres} &nbsp| ${year}
           <span class="vote"> ${vote}</span>
       </span>
       
