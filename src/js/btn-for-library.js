@@ -1,4 +1,4 @@
-// import { onGalleryClick } from './gallery-popular-films';
+import { onGalleryClick } from './gallery-popular-films';
 import { renderModalOneFilm, onOpenModal } from './modal-film';
 import { getMovieById } from './fetch-movie';
 
@@ -81,44 +81,42 @@ function renderMarkup(savedMovies) {
   const galleryItems = document.querySelectorAll('.card-set__item');
 
   galleryItems.forEach(card =>
-    card.removeEventListener('click', onGalleryInLibraryClick)
+    card.removeEventListener('click', onGalleryClick)
   );
   galleryItems.forEach(card =>
-    card.addEventListener('click', onGalleryInLibraryClick)
+    card.addEventListener('click', onGalleryClick)
   );
 }
 
-async function onGalleryInLibraryClick(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  const filmInfo = await getMovieById(e.currentTarget.id);
-  renderModalOneFilm(filmInfo);
-  onOpenModal();
+// async function onGalleryInLibraryClick(e) {
+//   e.preventDefault();
+//   e.stopPropagation();
+//   const filmInfo = await getMovieById(e.currentTarget.id);
+//   renderModalOneFilm(filmInfo);
+//   onOpenModal();
 
-  const modalWatchedBtn = document.querySelector(
-    '.description-button__watched'
-  );
-  const modalQueueBtn = document.querySelector('.description-button__queue');
+//   const modalWatchedBtn = document.querySelector('.description-button__watched');
+//   const modalQueueBtn = document.querySelector('.description-button__queue');
 
-  watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
-  queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
+//   watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
+//   queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
 
-  for (let i = 0; i < watchedMovies.length; i += 1) {
-    if (watchedMovies[i].id === filmInfo.id) {
-      modalWatchedBtn.textContent = 'remove from watched';
-      modalWatchedBtn.classList.remove('description-button__watched');
-      modalWatchedBtn.classList.add('remove-button__watched');
-    }
-  }
+//   for (let i = 0; i < watchedMovies.length; i += 1) {
+//     if (watchedMovies[i].id === filmInfo.id) {
+//       modalWatchedBtn.textContent = 'remove from watched';
+//       modalWatchedBtn.classList.remove('description-button__watched');
+//       modalWatchedBtn.classList.add('remove-button__watched');
+//     }
+//   }
 
-  for (let i = 0; i < queueMovies.length; i += 1) {
-    if (queueMovies[i].id === filmInfo.id) {
-      modalQueueBtn.textContent = 'remove from queue';
-      modalQueueBtn.classList.remove('description-button__queue');
-      modalQueueBtn.classList.add('remove-button__queue');
-    }
-  }
-}
+//   for (let i = 0; i < queueMovies.length; i += 1) {
+//     if (queueMovies[i].id === filmInfo.id) {
+//       modalQueueBtn.textContent = 'remove from queue';
+//       modalQueueBtn.classList.remove('description-button__queue');
+//       modalQueueBtn.classList.add('remove-button__queue');
+//     }
+//   }
+// }
 
 export function createMarkup(movies) {
   return movies

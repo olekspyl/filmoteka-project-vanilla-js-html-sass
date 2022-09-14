@@ -18,12 +18,12 @@ function onModalClick(evt) {
   }
 
   if (evt.target.classList.contains('remove-button__watched')) {
-    console.log(evt.target);
+    // console.log(evt.target);
     onBtnRemoveFromWatchedClick(evt);
   }
 
   if (evt.target.classList.contains('remove-button__queue')) {
-    console.log(evt.target);
+    // console.log(evt.target);
     onBtnRemoveFromQueueClick(evt);
   }
 }
@@ -35,6 +35,10 @@ async function onBtnAddToWatchedClick(evt) {
   if (dataWatched === null || dataWatched === '[]') {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+
+    evt.target.textContent = 'remove from watched';
+    evt.target.classList.remove('description-button__watched');
+    evt.target.classList.add('remove-button__watched');
 
     Notiflix.Notify.success('This movie added to Watched.');
   } else {
@@ -49,6 +53,10 @@ async function onBtnAddToWatchedClick(evt) {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
 
+    evt.target.textContent = 'remove from watched';
+    evt.target.classList.remove('description-button__watched');
+    evt.target.classList.add('remove-button__watched');
+
     Notiflix.Notify.success('This movie added to Watched.');
   }
 }
@@ -61,6 +69,10 @@ async function onBtnAddToQueueClick(evt) {
   if (dataQueue === null || dataQueue === '[]') {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
+
+    evt.target.textContent = 'remove from queue';
+    evt.target.classList.remove('description-button__queue');
+    evt.target.classList.add('remove-button__queue');
 
     Notiflix.Notify.success('This movie added to Queue.');
   } else {
@@ -89,6 +101,10 @@ async function onBtnRemoveFromWatchedClick(evt) {
       dataWatched.splice(i, 1);
       localStorage.setItem('watchedMovies', JSON.stringify(dataWatched));
 
+      evt.target.textContent = 'add to watched';
+      evt.target.classList.remove('remove-button__watched');
+      evt.target.classList.add('description-button__watched');
+
       Notiflix.Notify.success('This movie has been removed from Watched.');
     }
   }
@@ -102,6 +118,10 @@ async function onBtnRemoveFromQueueClick(evt) {
     if (dataQueue[i].id === selectedMovie.id) {
       dataQueue.splice(i, 1);
       localStorage.setItem('queueMovies', JSON.stringify(dataQueue));
+
+      evt.target.textContent = 'add to queue';
+      evt.target.classList.remove('remove-button__queue');
+      evt.target.classList.add('description-button__queue');
 
       Notiflix.Notify.success('This movie has been removed from Queue.');
     }

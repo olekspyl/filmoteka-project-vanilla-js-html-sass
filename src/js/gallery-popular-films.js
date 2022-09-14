@@ -27,6 +27,29 @@ export async function onGalleryClick(e) {
   const filmInfo = await getMovieById(e.currentTarget.id);
   renderModalOneFilm(filmInfo);
   onOpenModal();
+  
+  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies'));
+  const queueMovies = JSON.parse(localStorage.getItem('queueMovies'));
+
+  for (let i = 0; i < watchedMovies.length; i += 1) {
+    if (watchedMovies[i].id === filmInfo.id) {
+      const modalWatchedBtn = document.querySelector('.description-button__watched');
+
+      modalWatchedBtn.textContent = 'remove from watched';
+      modalWatchedBtn.classList.remove('description-button__watched');
+      modalWatchedBtn.classList.add('remove-button__watched');
+    }
+  }
+
+  for (let i = 0; i < queueMovies.length; i += 1) {
+    if (queueMovies[i].id === filmInfo.id) {
+      const modalQueueBtn = document.querySelector('.description-button__queue');
+
+      modalQueueBtn.textContent = 'remove from queue';
+      modalQueueBtn.classList.remove('description-button__queue');
+      modalQueueBtn.classList.add('remove-button__queue');
+    }
+  }
 }
 function fetchFilms() {
   const films = requireData.getFilms();
