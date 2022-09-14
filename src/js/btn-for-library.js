@@ -47,7 +47,7 @@ function onBtnQueueClick() {
   const noQueue = queueMovies === null || queueMovies === '[]';
 
   if (noQueue) {
-    const emptyQueue = `<div class="container empty-library"> 
+    const emptyQueue = `<div class="empty-library"> 
         <p class="empty-library__title">NO MOVIES TO WATCH IN QUEUE!</p>
         </div>`;
     libraryWrap.innerHTML = emptyQueue;
@@ -65,7 +65,7 @@ function onBtnWatchedClick() {
   const noWatched = watchedMovies === null || watchedMovies === '[]';
 
   if (noWatched) {
-    const emptyWatched = `<div class="container empty-library">
+    const emptyWatched = `<div class="empty-library">
         <p class="empty-library__title">NO MOVIES IN WATCHED!</p>
         </div>`;
     libraryWrap.innerHTML = emptyWatched;
