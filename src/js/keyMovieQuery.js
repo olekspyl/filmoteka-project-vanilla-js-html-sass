@@ -126,22 +126,23 @@ async function createMarkupKey(data) {
   const markup = data.results
     .map(({ id, poster_path, title, release_date, genre_ids }) => {
       let year;
-      // const length_release_date = 'sss'.length;
-      // console.log('date.length', release_date);
+
       if (release_date !== undefined) {
         if (release_date.length > 4) {
           year = release_date.slice(0, 4);
         } else {
-          year = '';
+          year = 'There is no info';
         }
       } else {
-        year = '';
+        year = 'There is no info';
       }
 
       const genr = matchGenres(genre_ids, GENRES_FULL_INFO);
 
       let formatedGenres;
-      if (genr.length > 2) {
+      if (!genr.length) {
+        formatedGenres = ['There is no info'];
+      } else if (genr.length > 2) {
         const genresList = genr.slice(0, 2);
         genresList.push('Other');
 
