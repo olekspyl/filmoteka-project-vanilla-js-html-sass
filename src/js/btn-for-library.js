@@ -25,6 +25,7 @@ function onLibraryLinkClick() {
     watchedBtn.classList.remove('library--btn--active');
     const emptyLibrary = `<div class="empty-library"> 
     <p class="empty-library__title">YOUR LIBRARY IS EMPTY!</p>
+    <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" width="400px"/>
     </div>`;
     libraryWrap.innerHTML = emptyLibrary;
   }
@@ -49,6 +50,7 @@ function onBtnQueueClick() {
   if (noQueue) {
     const emptyQueue = `<div class="empty-library"> 
         <p class="empty-library__title">NO MOVIES TO WATCH IN QUEUE!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" width="400px"/>
         </div>`;
     libraryWrap.innerHTML = emptyQueue;
   } else {
@@ -67,6 +69,7 @@ function onBtnWatchedClick() {
   if (noWatched) {
     const emptyWatched = `<div class="empty-library">
         <p class="empty-library__title">NO MOVIES IN WATCHED!</p>
+        <img  class="position" src="https://vitaliyzavgorodniy.github.io/filmoteka-project/no-gallery.7e761724.svg" alt="empty library" width="400px"/>
         </div>`;
     libraryWrap.innerHTML = emptyWatched;
   } else {

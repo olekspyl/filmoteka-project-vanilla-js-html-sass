@@ -5,10 +5,15 @@
 
 .empty-library__title {
   margin-top: 20px;
-
+  margin-bottom: 20px;
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 700;
   color: var(--primary-orange-color);
-  box-shadow: 10px 10px 10px 3px var(--black-color);
+  // box-shadow: 10px 10px 10px 3px var(--black-color);
+}
+
+.position {
+  margin-left: auto;
+  margin-right: auto;
 }
