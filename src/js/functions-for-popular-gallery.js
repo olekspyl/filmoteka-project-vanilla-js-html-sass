@@ -10,10 +10,10 @@ export function filmAddYearRelease(dataForModify) {
       if (release_date.length > 4) {
         releaseYear = release_date.slice(0, 4);
       } else {
-        releaseYear = '';
+        releaseYear = 'There is no info';
       }
     } else {
-      releaseYear = '';
+      releaseYear = 'There is no info';
     }
     // releaseYear = release_date.slice(0, 4);
     return { releaseYear, ...result };
@@ -79,11 +79,38 @@ export function filmCheckImgUrl(dataForModify) {
   //   const { results } = dataForModify;
   //   console.log('dataForModify', dataForModify);
   const filmCheckImgUrl = dataForModify.map(result => {
-    const { poster_path } = result;
-    if (poster_path === null || poster_path === undefined) {
+    const { poster_path, releaseYear, title, filmGenreList } = result;
+    if (
+      poster_path === null ||
+      poster_path === undefined ||
+      poster_path === ''
+    ) {
       //   result.base_url = 'images/';
       result.poster_path = 'uc4RAVW1T3T29h6OQdr7zu4Blui.jpg';
-      return result;
+      // return result;
+    }
+    if (
+      releaseYear === null ||
+      releaseYear === undefined ||
+      releaseYear === ''
+    ) {
+      //   result.base_url = 'images/';
+      result.releaseYear = 'There is no info';
+      // return result;
+    }
+    if (title === null || title === undefined || title === '') {
+      //   result.base_url = 'images/';
+      result.title = 'There is no info';
+      // return result;
+    }
+    if (
+      filmGenreList === null ||
+      filmGenreList === undefined ||
+      filmGenreList === ''
+    ) {
+      //   result.base_url = 'images/';
+      result.filmGenreList = 'There is no info';
+      // return result;
     }
     return result;
   });

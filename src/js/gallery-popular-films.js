@@ -10,7 +10,7 @@ import {
   filmCheckImgUrl,
 } from './functions-for-popular-gallery';
 
-const requireData = new AxiosRequestService();
+export const requireData = new AxiosRequestService();
 
 let config = {};
 export let GENRES_FULL_INFO;
@@ -60,7 +60,7 @@ async function fetchDataConfigAndGenre() {
   return { base_url, poster_sizes, genres };
 }
 //////////////////////////////////////////////////////////////////////////////
-async function loadPage() {
+export async function loadPage() {
   const configAndGenreData = await fetchDataConfigAndGenre();
   config = configAndGenreData;
   // console.log('configAndGenre', configAndGenreData);
