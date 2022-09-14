@@ -88,6 +88,10 @@ async function onBtnAddToQueueClick(evt) {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
 
+    evt.target.textContent = 'remove from queue';
+    evt.target.classList.remove('description-button__queue');
+    evt.target.classList.add('remove-button__queue');
+
     Notiflix.Notify.success('This movie added to Queue.');
   }
 }
