@@ -1,6 +1,8 @@
 .empty-library {
   margin-top: 30px;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .empty-library__title {
@@ -14,8 +16,6 @@
 }
 
 .position {
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
   @media screen and (max-width: 768px) {
     width: 50%;
