@@ -3,6 +3,7 @@ import { getMovieById } from './fetch-movie';
 import { pagination } from './pagination';
 import AxiosRequestService from './axiosRequest';
 import createMarkup from './markupForGallery';
+import Notiflix from 'notiflix';
 import {
   filmAddYearRelease,
   filmAddGenreList,
@@ -26,6 +27,8 @@ export async function onGalleryClick(e) {
   e.stopPropagation();
   const filmInfo = await getMovieById(e.currentTarget.id);
   renderModalOneFilm(filmInfo);
+  checkWatched(filmInfo);
+  checkQueue(filmInfo);
   onOpenModal();
 }
 function fetchFilms() {
@@ -33,6 +36,54 @@ function fetchFilms() {
   return films;
 }
 
+function checkWatched(filmInfo) {
+  const descriptionWatched = document.querySelector(
+    '.description-button__watched'
+  );
+  // const descriptionQueue = document.querySelector('.description-button__queue');
+  const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
+  if (dataWatched === null || !dataWatched.length) {
+    return;
+  } else {
+    const { id } = filmInfo;
+    watchedMovies = dataWatched;
+    for (let i = 0; i < watchedMovies.length; i += 1) {
+      if (watchedMovies[i].id === id) {
+        // console.log(libralyWatched);
+        descriptionWatched.textContent = 'remove from watched';
+        descriptionWatched.classList.remove('description-button__watched');
+        descriptionWatched.classList.add('remove-button__watched');
+
+        // Notiflix.Notify.failure(
+        //   'This movie has already been added to Watched.'
+        // );
+        return;
+      }
+    }
+  }
+}
+function checkQueue(filmInfo) {
+  // const descriptionWatched = document.querySelector(
+  //   '.description-button__watched'
+  // );
+  const descriptionQueue = document.querySelector('.description-button__queue');
+  const dataQueue = JSON.parse(localStorage.getItem('queueMovies'));
+  if (dataQueue === null || !dataQueue.length) {
+    return;
+  } else {
+    const { id } = filmInfo;
+    queueMovies = dataQueue;
+    for (let i = 0; i < queueMovies.length; i += 1) {
+      if (queueMovies[i].id === id) {
+        descriptionQueue.textContent = 'remove from queue';
+        descriptionQueue.classList.remove('description-button__queue');
+        descriptionQueue.classList.add('remove-button__queue');
+        // Notiflix.Notify.failure('This movie has already been added to Queue.');
+        return;
+      }
+    }
+  }
+}
 // async function fetchData() {
 //   const data = await Promise.all([
 //     requireData.getConfig(),
