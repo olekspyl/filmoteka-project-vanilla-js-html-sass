@@ -11,6 +11,9 @@ import {
   filmCheckImgUrl,
 } from './functions-for-popular-gallery';
 
+let watchedMovies = [];
+let queueMovies = [];
+
 export const requireData = new AxiosRequestService();
 
 let config = {};
