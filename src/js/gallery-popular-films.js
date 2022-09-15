@@ -40,7 +40,7 @@ function checkWatched(filmInfo) {
   const descriptionWatched = document.querySelector(
     '.description-button__watched'
   );
-  const descriptionQueue = document.querySelector('.description-button__queue');
+  // const descriptionQueue = document.querySelector('.description-button__queue');
   const dataWatched = JSON.parse(localStorage.getItem('watchedMovies'));
   if (dataWatched === null || !dataWatched.length) {
     return;
@@ -54,9 +54,9 @@ function checkWatched(filmInfo) {
         descriptionWatched.classList.remove('description-button__watched');
         descriptionWatched.classList.add('remove-button__watched');
 
-        Notiflix.Notify.failure(
-          'This movie has already been added to Watched.'
-        );
+        // Notiflix.Notify.failure(
+        //   'This movie has already been added to Watched.'
+        // );
         return;
       }
     }
@@ -78,7 +78,7 @@ function checkQueue(filmInfo) {
         descriptionQueue.textContent = 'remove from queue';
         descriptionQueue.classList.remove('description-button__queue');
         descriptionQueue.classList.add('remove-button__queue');
-        Notiflix.Notify.failure('This movie has already been added to Queue.');
+        // Notiflix.Notify.failure('This movie has already been added to Queue.');
         return;
       }
     }
