@@ -52,14 +52,14 @@ async function onBtnAddToWatchedClick(evt) {
     return;
   } else {
     watchedMovies = dataWatched;
-    for (let i = 0; i < watchedMovies.length; i += 1) {
-      if (watchedMovies[i].id === selectedMovie.id) {
-        return;
-        // Notiflix.Notify.failure(
-        //   'This movie has already been added to Watched.'
-        // );
-      }
-    }
+    // for (let i = 0; i < watchedMovies.length; i += 1) {
+    //   if (watchedMovies[i].id === selectedMovie.id) {
+    //     return;
+    //     // Notiflix.Notify.failure(
+    //     //   'This movie has already been added to Watched.'
+    //     // );
+    //   }
+    // }
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
     if (
@@ -99,12 +99,12 @@ async function onBtnAddToQueueClick(evt) {
     return;
   } else {
     queueMovies = dataQueue;
-    for (let i = 0; i < queueMovies.length; i += 1) {
-      if (queueMovies[i].id === selectedMovie.id) {
-        // Notiflix.Notify.failure('This movie has already been added to Queue.');
-        return;
-      }
-    }
+    // for (let i = 0; i < queueMovies.length; i += 1) {
+    //   if (queueMovies[i].id === selectedMovie.id) {
+    //     // Notiflix.Notify.failure('This movie has already been added to Queue.');
+    //     return;
+    //   }
+    // }
 
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
