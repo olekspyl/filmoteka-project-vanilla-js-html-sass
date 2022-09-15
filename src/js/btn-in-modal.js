@@ -38,7 +38,12 @@ async function onBtnAddToWatchedClick(evt) {
   if (dataWatched === null || !dataWatched.length) {
     watchedMovies.push(selectedMovie);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    onRemoveWatchedUpdate(evt);
+    if (
+      pageLibraly.classList.contains('library-header--list__link--active') &&
+      libralyWatched.classList.contains('library--btn--active')
+    ) {
+      onRemoveWatchedUpdate(evt);
+    }
     evt.target.textContent = 'remove from watched';
     evt.target.classList.remove('description-button__watched');
     evt.target.classList.add('remove-button__watched');
@@ -79,7 +84,12 @@ async function onBtnAddToQueueClick(evt) {
   if (dataQueue === null || !dataQueue.length) {
     queueMovies.push(selectedMovie);
     localStorage.setItem('queueMovies', JSON.stringify(queueMovies));
-    onRemoveQueueUpdate(evt);
+    if (
+      pageLibraly.classList.contains('library-header--list__link--active') &&
+      libralyQueue.classList.contains('library--btn--active')
+    ) {
+      onRemoveQueueUpdate(evt);
+    }
     evt.target.textContent = 'remove from queue';
     evt.target.classList.remove('description-button__queue');
     evt.target.classList.add('remove-button__queue');
