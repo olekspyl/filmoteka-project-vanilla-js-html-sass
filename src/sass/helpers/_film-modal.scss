@@ -28,7 +28,7 @@
     padding: 40px 72px 40px 36px;
   }
   @media screen and(min-width:$desktop) {
-    height: 558px;
+    height: auto;
     width: 814px;
     padding: 40px 16px 40px 16px;
   }
@@ -228,6 +228,6 @@
   font-size: 12px;
   line-height: 20px;
   color: var(--black-color);
-  max-height: 200px;
+  max-height: 160px;
   overflow-y: auto;
 }
