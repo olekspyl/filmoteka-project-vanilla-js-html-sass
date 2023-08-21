@@ -1,7 +1,6 @@
 # Filmoteka-project-vanilla-js-html-sass
 
-This project is a team project. Based on HTML, CSS, Sass and vanilla JavaScript
-we have created useful and precise site with dynamic logic under the hood.
+This project is based on HTML, CSS, Sass and vanilla JavaScript. It is useful and precise site with dynamic logic under the hood.
 
 ## Why site is useful
 
